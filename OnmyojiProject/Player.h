@@ -77,13 +77,18 @@ private:
 	// 関数
 	//===============================
 
-	void Move(); // 移動処理
-	void MoveGraphSet(); // 移動した際のイメージの変更処理
-	void Collision(); // 当たり判定
-	void Draw(); // 表示処理
+	// 移動処理
+	void Move();
+	// 移動した際のイメージの変更処理
+	void MoveGraphSet();
+	// 当たり判定
+	void Collision();
+	// 表示処理
+	void Draw(); 
+	// 当たり判定の座標を登録
+	void SetPosition();
 
 public:
 	Player();
-	void SetPosition();
 	void Update();
 };

@@ -7,6 +7,7 @@ StageEditor::StageEditor()
 {
 	// 画像読み込み
 	LoadDivGraph("TestMapChip4.png", allDivision, divisionX, divisionY, selectMapChipGraphSize, selectMapChipGraphSize, chipGh);
+	backGroundGh = LoadGraph("BackGround.png");
 
 	SetEditorPlacePos();
 	SetSelectMapChipPlacePos();
@@ -40,18 +41,18 @@ void StageEditor::SetEditorPlacePos()
 	vector<ChipPosition> tempChipPos;
 	vector<Rect> tempRectPos;
 
-	for (int i = 0; i < mapNumY; ++i)
+	for (int y = 0; y < mapNumY; ++y)
 	{
-		for (int j = 0; j < mapNumX; ++j)
+		for (int x = 0; x < mapNumX; ++x)
 		{
 			// マップチップの位置を取得
-			tempChipPos.push_back(GetChipPos(j, i));
+			tempChipPos.push_back(GetChipPos(x, y));
 
 			// マップチップの画像サイズを取得
-			tempRectPos.push_back(GetChipRect(j, i));
+			tempRectPos.push_back(GetChipRect(x, y));
 
 			// 端だったら壁、それ以外は通れる場所として配置する
-			if (IsRectEdge(j, i)) tempMapStageData.push_back(1);
+			if (IsRectEdge(x, y)) tempMapStageData.push_back(1);
 			else tempMapStageData.push_back(0);
 		}
 
@@ -156,26 +157,58 @@ bool StageEditor::IsRectMouseOver(Rect chipRectPos)
 }
 
 /////////////////////////////////////////////////////
-//引数			:Rect構造体
+//引数			:Rect構造体、ClickState列挙体
 //戻り値		:画像がクリックされていたらtrue
 //動作			:マウスが画像の上にある状態で、クリックされているかどうか
 /////////////////////////////////////////////////////
-bool StageEditor::IsRectClick(Rect chipRectPos)
+bool StageEditor::IsRectClick(Rect chipRectPos, ClickState state)
 {
-	if (IsRectMouseOver(chipRectPos) && Input::Instance()->Button(MOUSE_INPUT_LEFT)) return true;
-	else return false;
+	if (IsRectMouseOver(chipRectPos))
+	{
+		switch (state)
+		{
+		case leftClick: 
+			if (Input::Instance()->Button(MOUSE_INPUT_LEFT)) return true;
+			else return false;
+
+		case rightClick: 
+			if (Input::Instance()->Button(MOUSE_INPUT_RIGHT)) return true;
+			else return false;
+
+		case anyClick: 
+			if (Input::Instance()->Button(MOUSE_INPUT_LEFT) || Input::Instance()->Button(MOUSE_INPUT_RIGHT)) return true;
+			else return false;
+
+		default: 
+			return false;
+		}
+	}
+
+	return false;
 }
 
+int tempX, tempY;
+int tempChipIndex;
+
 /////////////////////////////////////////////////////
-//引数			:ステージデータの配列の添え字x,y マップチップの種類　Rect構造体
+//引数			:ステージデータの配列の添え字x,y 変更したいマップチップの種類　Rect構造体
 //戻り値		:なし
 //動作			:マップチップの変更処理
 /////////////////////////////////////////////////////
-void StageEditor::ChangeMapChip(int x, int y, int chipInde, Rect chipRectPos)
+void StageEditor::PaintMapChip(int x, int y, int chipInde, Rect chipRectPos)
 {
+	if (IsRectClick(chipRectPos, leftClick) && isChipChanging == false)
+	{
+		if (tempX != x || tempY != y || tempChipIndex != chipInde)
+		{
+			DrawGraph(0, 500, chipGh[4], TRUE);
+			mapStageData[y][x] = chipInde;
+		}
 
-
-	if(IsRectClick(chipRectPos)) mapStageData[x][y] = chipInde;
+		tempX = x;
+		tempY = y;
+		tempChipIndex = chipInde;
+	}
 }
 
 /////////////////////////////////////////////////////
@@ -185,17 +218,21 @@ void StageEditor::ChangeMapChip(int x, int y, int chipInde, Rect chipRectPos)
 /////////////////////////////////////////////////////
 void StageEditor::EditorDraw()
 {
-	for (int i = 0; i < mapNumY; i++)
+	for (int y = 0; y < mapNumY; y++)
 	{
-		for (int j = 0; j < mapNumX; ++j)
+		for (int x = 0; x < mapNumX; ++x)
 		{
 			// 画像を描画
-			DrawRotaGraph(chipPosVec[i][j].drawPosX, chipPosVec[i][j].drawPosY, 0.25, 0.0, chipGh[mapStageData[i][j]], TRUE);
+			DrawRotaGraph(chipPosVec[y][x].drawPosX, chipPosVec[y][x].drawPosY, 0.25, 0.0, chipGh[mapStageData[y][x]], TRUE);
 
 			// ステージエディターの端は壁固定。
 			// それ以外がクリックされていたらマップチップ変換処理
-			if (IsRectEdge(j, i) == false) ChangeMapChip(i, j, chipIndex, chipRectPosVec[i][j]);
-
+			if (IsRectEdge(x, y) == false)
+			{
+				PaintMapChip(x, y, chipIndex, chipRectPosVec[y][x]);
+				ChangeMapChipSelect(x, y, chipRectPosVec[y][x]);
+				ChangingMapChip(x, y, chipRectPosVec[y][x]);
+			}
 		}
 	}
 }
@@ -213,7 +250,7 @@ void StageEditor::SelectMapChipDraw()
 		DrawGraph(selectChipPosVec[i].drawPosX, selectChipPosVec[i].drawPosY, chipGh[i], TRUE);
 
 		// 選択用のマップチップがクリックされていたら
-		if (IsRectClick(selectChipRectPosVec[i]))
+		if (IsRectClick(selectChipRectPosVec[i],leftClick))
 		{
 			// 設置するマップチップを変更する
 			chipIndex = i;
@@ -232,10 +269,71 @@ void StageEditor::SelectMapChipDraw()
 /////////////////////////////////////////////////////
 //引数			:なし
 //戻り値		:なし
+//動作			:マップチップを変更する
+/////////////////////////////////////////////////////
+void StageEditor::ChangeMapChipSelect(int x, int y, Rect chipRectPos)
+{
+	// エディター上のマップチップ上で右クリックをされている ＆ 現在マップ交換中でなければ
+	if (IsRectClick(chipRectPos, rightClick) && isChipChanging == false)
+	{
+		// マップを交換しているかどうかを判断するフラグ
+		isChipChanging = true;
+
+		changinMapX = x;
+		changinMapY = y;
+
+		changinChipIndex = mapStageData[y][x];
+	}
+
+	// 選択中のチップを分かりやすく薄い赤で選択表示
+	if (isChipChanging && changinMapX == x && changinMapY == y)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+
+		DrawBox(chipRectPosVec[y][x].left, chipRectPosVec[y][x].top, chipRectPosVec[y][x].right, chipRectPosVec[y][x].bottom, GetColor(255, 0, 0), TRUE);
+
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
+
+
+}
+
+void StageEditor::ChangingMapChip(int x, int y, Rect chipRectPos)
+{
+	if (isChipChanging)
+	{
+		if (IsRectClick(chipRectPos, leftClick))
+		{
+			mapStageData[y][x] = changinChipIndex;
+			mapStageData[changinMapY][changinMapX] = 0;
+
+			isChipChanging = false;
+			changinMapX = 0;
+			changinMapY = 0;
+			changinChipIndex = 0;
+		}
+	}
+}
+
+/////////////////////////////////////////////////////
+//引数			:なし
+//戻り値		:なし
+//動作			:一つ前に戻す
+/////////////////////////////////////////////////////
+void StageEditor::RevertBackMap()
+{
+
+}
+
+/////////////////////////////////////////////////////
+//引数			:なし
+//戻り値		:なし
 //動作			:描画
 /////////////////////////////////////////////////////
 void StageEditor::Draw()
 {
+	DrawGraph(0, 0, backGroundGh,FALSE);
+
 	EditorDraw();
 	SelectMapChipDraw();
 }

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Collision.h"
 #include "StageEditor.h"
+#include "FpsFix.h"
 
 #include <vector>
 
@@ -47,6 +48,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	std::unique_ptr<Player> player(new Player);
 	std::unique_ptr<StageEditor> stageEditor(new StageEditor);
+	std::unique_ptr<FpsFix> fpsFix(new FpsFix);
 
 	int count = 0;
 	double max_y = 0;
@@ -74,7 +76,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//DrawRotaGraph3(300, 300, 20, 20, 0.5f + sin(3.14f * 2 / 240 * count) * 0.1f, max_y, 128, testGh, TRUE);
 		//count++;
 
+
 		stageEditor->Update();
+		fpsFix->Draw();
 
 		Input::Instance()->InputMemory(); // Inputを更新
 		ScreenFlip();	//裏画面を表画面にコピー

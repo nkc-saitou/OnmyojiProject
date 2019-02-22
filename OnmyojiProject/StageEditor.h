@@ -19,6 +19,13 @@ struct ChipPosition
 	int drawPosY;
 };
 
+enum ClickState
+{
+	leftClick = 0,
+	rightClick,
+	anyClick,
+};
+
 /*
 ///////////////////////////////////////////
 StageEditorクラス
@@ -63,9 +70,24 @@ class StageEditor
 
 	// マップチップのグラフィックハンドル
 	int chipGh[11];
+	int backGroundGh;
 
 	// マウス位置の取得
 	int mousePosX, mousePosY;
+
+	// チェンジする際の移動前マップ位置
+	int changinMapX, changinMapY;
+	// チェンジする際の移動前のチップの種類
+	int changinChipIndex;
+
+	int resetChangeTimer;
+
+	// マップを交換している最中かどうか
+	bool isChipChanging = false;
+
+	bool isResetChipChange = false;
+
+	ClickState state;
 
 	// 各マスに何が置かれているかを記憶するデータ配列
 	vector<vector<int>> mapStageData;
@@ -96,8 +118,15 @@ class StageEditor
 	void SetSelectMapChipPlacePos();
 	// ステージ情報を書き出し
 	void ExportStage();
-	// マップチップを入れ替える処理
-	void ChangeMapChip(int x, int y, int chipInde, Rect chipRectPos);
+	// マップを塗る
+	void PaintMapChip(int x, int y, int chipInde, Rect chipRectPos);
+	// マップチップを移動させる
+	void ChangeMapChipSelect(int x, int y, Rect chipRectPos);
+	// マップチップを移動
+	void ChangingMapChip(int x, int y, Rect chipRectPos);
+	// マップチップの状態を一つ前に戻す
+	void RevertBackMap();
+
 	// エディターのマップチップを表示
 	void EditorDraw();
 	// 選択する用のマップチップを表示
@@ -106,7 +135,7 @@ class StageEditor
 	// マウスカーソルがマップチップ内にあるかどうか
 	bool IsRectMouseOver(Rect chipRectPos);
 	// マップチップ内でクリックされたかどうか
-	bool IsRectClick(Rect chipRectPos);
+	bool IsRectClick(Rect chipRectPos,ClickState state);
 	// 現在のx,yがステージ上の端かどうか
 	bool IsRectEdge(int x, int y);
 

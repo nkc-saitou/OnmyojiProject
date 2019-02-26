@@ -35,7 +35,7 @@ StageEditorクラス
 */
 using namespace std;
 
-class StageEditor
+class StageEditorTool
 {
 	//スクリーンサイズ
 	const int screenScaleX = 1920;
@@ -140,7 +140,7 @@ class StageEditor
 	bool IsRectEdge(int x, int y);
 
 public:
-	StageEditor();
+	StageEditorTool();
 	//描画
 	void Draw();
 	//更新

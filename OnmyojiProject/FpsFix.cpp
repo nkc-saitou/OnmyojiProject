@@ -17,13 +17,6 @@ void FpsFix::FpsCounter()
 	count++;
 }
 
-void FpsFix::Draw()
-{
-	FpsCounter();
-	DrawFormatString(0, 0, GetColor(255, 0, 0), "%.1f", fps);
-	Wait();
-}
-
 void FpsFix::Wait()
 {
 	int tookTime = GetNowCount() - startTime;	//‚©‚©‚Á‚½ŽžŠÔ
@@ -31,4 +24,11 @@ void FpsFix::Wait()
 	if (waitTime > 0) {
 		Sleep(waitTime);	//‘Ò‹@
 	}
+}
+
+void FpsFix::Updata()
+{
+	FpsCounter();
+	DrawFormatString(0, 0, GetColor(255, 0, 0), "%.1f", fps);
+	Wait();
 }

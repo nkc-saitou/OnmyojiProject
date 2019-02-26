@@ -1,6 +1,7 @@
 #pragma once
 
 #include "RectShape.h"
+#include "ImageLoader.h"
 #include <memory>
 
 /*
@@ -32,6 +33,7 @@ class  Player : public RectShape
 	//===============================
 
 private:
+
 	// イメージのサイズ。縦横ともに64px
 	const int graphSize = 64;
 
@@ -44,10 +46,6 @@ private:
 	// 縦の分割数
 	const int divisionY = 4;
 
-
-	// グラフィックハンドル
-	int walkGh[12];
-	int idolGh[8];
 
 	// アナログスティックの回転度を取得
 	int tempMoveX = 0, tempMoveY = 0;
@@ -89,6 +87,6 @@ private:
 	void SetPosition();
 
 public:
-	Player();
-	void Update();
+
+	void Updata();
 };

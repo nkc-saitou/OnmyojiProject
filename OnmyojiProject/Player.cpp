@@ -4,11 +4,6 @@
 
 #include <cmath>
 
-Player::Player() : RectShape()
-{
-	// 画像読み込み
-	LoadDivGraph("test.png", allDivision, divisionX, divisionY, graphSize, graphSize, walkGh);
-}
 
 /////////////////////////////////////////////////////
 //引数			:なし
@@ -33,10 +28,10 @@ void Player::Move()
 	if (tempMoveY > 0) y += (int)(speed * move);
 
 	// ｘ方向、画面外に出ないように
-	if (x + 64 > 1600) x = 1600 - 64;
+	if (x + 64 > 1920) x = 1920 - 64;
 	if (x < 64) x = 64;
 	// ｙ方向、画面外に出ないように
-	if (y + 64 > 900) y = 900 -64;
+	if (y + 64 > 1080) y = 1080 -64;
 	if (y < 64) y = 64;
 }
 
@@ -167,9 +162,8 @@ void Player::Draw()
 	MoveGraphSet();
 
 	// プレイヤー表示
-	DrawGraph(x, y, walkGh[result], TRUE);
+	DrawGraph(x, y, ImageLoader::Instance()->PlayerWalkGH()[result], TRUE);
 	DrawCircle(x, y, 10, GetColor(255, 0, 0), TRUE);
-
 }
 
 /////////////////////////////////////////////////////
@@ -193,7 +187,7 @@ void Player::SetPosition()
 //戻り値		:なし
 //動作			:更新
 /////////////////////////////////////////////////////
-void Player::Update()
+void Player::Updata()
 {
 	// アナログスティックの回転角度(-1000 ~ 1000)の取得
 	tempMoveX = Input::Instance()->AngleInputX(Pad_1);

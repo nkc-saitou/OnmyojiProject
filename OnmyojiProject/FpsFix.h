@@ -2,8 +2,9 @@
 
 #include <math.h>
 #include "DxLib.h"
+#include "Singleton.h"
 
-class FpsFix
+class FpsFix : public Singleton <FpsFix>
 {
 	//測定開始時刻
 	int startTime = 0;
@@ -17,11 +18,13 @@ class FpsFix
 	// 平均のfps
 	static const int averageFps = 60;
 
-public:
 	// 毎フレーム更新
 	void FpsCounter();
-	// Fps描画
-	void Draw();
+
 	// 固定Fpsで待機する
 	void Wait();
+
+public:
+	// Fps描画
+	void Updata();
 };

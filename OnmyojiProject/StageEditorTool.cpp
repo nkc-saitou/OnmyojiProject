@@ -1,9 +1,9 @@
-#include "StageEditor.h"
+#include "StageEditorTool.h"
 #include "DxLib.h"
 #include "Input.h"
 
 
-StageEditor::StageEditor()
+StageEditorTool::StageEditorTool()
 {
 	// 画像読み込み
 	LoadDivGraph("TestMapChip4.png", allDivision, divisionX, divisionY, selectMapChipGraphSize, selectMapChipGraphSize, chipGh);
@@ -18,7 +18,7 @@ StageEditor::StageEditor()
 //戻り値		:ステージ上の端にあたる部分だったらtrue
 //動作			:x,yがステージの端かどうか
 /////////////////////////////////////////////////////
-bool StageEditor::IsRectEdge(int x, int y)
+bool StageEditorTool::IsRectEdge(int x, int y)
 {
 	if (y == 0 || y >= mapNumY - 1 || x == 0 || x >= mapNumX - 1) return true;
 	else return false;
@@ -29,7 +29,7 @@ bool StageEditor::IsRectEdge(int x, int y)
 //戻り値		:なし
 //動作			:画面上にエディターを置く位置をセット
 /////////////////////////////////////////////////////
-void StageEditor::SetEditorPlacePos()
+void StageEditorTool::SetEditorPlacePos()
 {
 	// 配列を初期化
 	mapStageData.clear();
@@ -73,7 +73,7 @@ void StageEditor::SetEditorPlacePos()
 //戻り値		:位置情報が格納されたChipOosition構造体
 //動作			:マップチップの位置情報を取得
 /////////////////////////////////////////////////////
-ChipPosition StageEditor::GetChipPos(int x, int y)
+ChipPosition StageEditorTool::GetChipPos(int x, int y)
 {
 	ChipPosition chipPos;
 
@@ -88,7 +88,7 @@ ChipPosition StageEditor::GetChipPos(int x, int y)
 //戻り値		:位置情報が格納されたRect構造体
 //動作			:マップチップ画像の上下左右の座標位置を取得
 /////////////////////////////////////////////////////
-Rect StageEditor::GetChipRect(int x, int y)
+Rect StageEditorTool::GetChipRect(int x, int y)
 {
 	Rect chipRectPos;
 
@@ -105,7 +105,7 @@ Rect StageEditor::GetChipRect(int x, int y)
 //戻り値		:なし
 //動作			:マップチップ選択用チップの配置場所をセット
 /////////////////////////////////////////////////////
-void StageEditor::SetSelectMapChipPlacePos()
+void StageEditorTool::SetSelectMapChipPlacePos()
 {
 	// 配列を初期化
 	selectChipPosVec.clear();
@@ -140,7 +140,7 @@ void StageEditor::SetSelectMapChipPlacePos()
 //戻り値		:なし
 //動作			:ステージを書き出し
 /////////////////////////////////////////////////////
-void StageEditor::ExportStage()
+void StageEditorTool::ExportStage()
 {
 
 }
@@ -150,7 +150,7 @@ void StageEditor::ExportStage()
 //戻り値		:画像の上にマウスがのっていたらtrue
 //動作			:画像の上にマウスがのっているかどうか
 /////////////////////////////////////////////////////
-bool StageEditor::IsRectMouseOver(Rect chipRectPos)
+bool StageEditorTool::IsRectMouseOver(Rect chipRectPos)
 {
 	if (Collision::Instance()->CheckRectAndPoint(chipRectPos, mousePosX, mousePosY)) return true;
 	else return false;
@@ -161,7 +161,7 @@ bool StageEditor::IsRectMouseOver(Rect chipRectPos)
 //戻り値		:画像がクリックされていたらtrue
 //動作			:マウスが画像の上にある状態で、クリックされているかどうか
 /////////////////////////////////////////////////////
-bool StageEditor::IsRectClick(Rect chipRectPos, ClickState state)
+bool StageEditorTool::IsRectClick(Rect chipRectPos, ClickState state)
 {
 	if (IsRectMouseOver(chipRectPos))
 	{
@@ -195,7 +195,7 @@ int tempChipIndex;
 //戻り値		:なし
 //動作			:マップチップの変更処理
 /////////////////////////////////////////////////////
-void StageEditor::PaintMapChip(int x, int y, int chipInde, Rect chipRectPos)
+void StageEditorTool::PaintMapChip(int x, int y, int chipInde, Rect chipRectPos)
 {
 	if (IsRectClick(chipRectPos, leftClick) && isChipChanging == false)
 	{
@@ -216,7 +216,7 @@ void StageEditor::PaintMapChip(int x, int y, int chipInde, Rect chipRectPos)
 //戻り値		:なし
 //動作			:マップチップが配置されているエディターを描画する
 /////////////////////////////////////////////////////
-void StageEditor::EditorDraw()
+void StageEditorTool::EditorDraw()
 {
 	for (int y = 0; y < mapNumY; y++)
 	{
@@ -242,7 +242,7 @@ void StageEditor::EditorDraw()
 //戻り値		:なし
 //動作			:選択用マップチップの描画
 /////////////////////////////////////////////////////
-void StageEditor::SelectMapChipDraw()
+void StageEditorTool::SelectMapChipDraw()
 {
 	for (int i = 0; i < selectChipNum; ++i)
 	{
@@ -271,7 +271,7 @@ void StageEditor::SelectMapChipDraw()
 //戻り値		:なし
 //動作			:マップチップを変更する
 /////////////////////////////////////////////////////
-void StageEditor::ChangeMapChipSelect(int x, int y, Rect chipRectPos)
+void StageEditorTool::ChangeMapChipSelect(int x, int y, Rect chipRectPos)
 {
 	// エディター上のマップチップ上で右クリックをされている ＆ 現在マップ交換中でなければ
 	if (IsRectClick(chipRectPos, rightClick) && isChipChanging == false)
@@ -298,7 +298,7 @@ void StageEditor::ChangeMapChipSelect(int x, int y, Rect chipRectPos)
 
 }
 
-void StageEditor::ChangingMapChip(int x, int y, Rect chipRectPos)
+void StageEditorTool::ChangingMapChip(int x, int y, Rect chipRectPos)
 {
 	if (isChipChanging)
 	{
@@ -320,7 +320,7 @@ void StageEditor::ChangingMapChip(int x, int y, Rect chipRectPos)
 //戻り値		:なし
 //動作			:一つ前に戻す
 /////////////////////////////////////////////////////
-void StageEditor::RevertBackMap()
+void StageEditorTool::RevertBackMap()
 {
 
 }
@@ -330,7 +330,7 @@ void StageEditor::RevertBackMap()
 //戻り値		:なし
 //動作			:描画
 /////////////////////////////////////////////////////
-void StageEditor::Draw()
+void StageEditorTool::Draw()
 {
 	DrawGraph(0, 0, backGroundGh,FALSE);
 
@@ -343,7 +343,7 @@ void StageEditor::Draw()
 //戻り値		:なし
 //動作			:更新
 /////////////////////////////////////////////////////
-void StageEditor::Update()
+void StageEditorTool::Update()
 {
 	// マウスの位置を取得
 	GetMousePoint(&mousePosX, &mousePosY);

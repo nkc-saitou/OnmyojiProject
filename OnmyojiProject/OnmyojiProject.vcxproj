@@ -151,10 +151,6 @@
     <ClInclude Include="StageEditorTool.h" />
     <ClInclude Include="StageInpoter.h" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="StageData\TestStageData.csv" />
-    <None Include="StageData\TestStageData2.csv" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -4,6 +4,13 @@
 #include "DxLib.h"
 #include "Singleton.h"
 
+/*
+///////////////////////////////////////////
+FpsFixクラス
+
+概要　：Fpsを管理するクラス
+///////////////////////////////////////////
+*/
 class FpsFix : public Singleton <FpsFix>
 {
 	//測定開始時刻

@@ -5,9 +5,6 @@
 
 #include <cmath>
 
-#define STR(var) #var 
-
-
 /////////////////////////////////////////////////////
 //引数			:なし
 //戻り値		:なし
@@ -50,7 +47,7 @@ void Player::Move()
 /////////////////////////////////////////////////////
 //引数			:なし
 //戻り値		:なし
-//動作			:プレイヤーのイメージ切り替え
+//動作			:移動中のイメージ切り替え
 /////////////////////////////////////////////////////
 void Player::MoveGraphSet()
 {
@@ -149,6 +146,11 @@ void Player::MoveGraphSet()
 	if (tempMoveX == 0) moveCountX = 0;
 }
 
+/////////////////////////////////////////////////////
+//引数			:なし
+//戻り値		:なし
+//動作			:待機中のイメージ切り替え
+/////////////////////////////////////////////////////
 void Player::IdolGraphSet()
 {
 	if (stopCount < 20) ++stopCount;
@@ -188,8 +190,8 @@ void Player::Draw()
 	IdolGraphSet();
 
 	// プレイヤー表示
-	if(isMove) DrawGraph(x, y, ImageLoader::Instance()->PlayerWalkGH()[moveIndex], TRUE);
-	else DrawGraph(x, y, ImageLoader::Instance()->PlayerIdolGH()[stopIndex], TRUE);
+	if(isMove) DrawGraph(x, y, ImageLoader::Instance()->GetPlayerWalkGH()[moveIndex], TRUE);
+	else DrawGraph(x, y, ImageLoader::Instance()->GetPlayerIdolGH()[stopIndex], TRUE);
 }
 
 /////////////////////////////////////////////////////

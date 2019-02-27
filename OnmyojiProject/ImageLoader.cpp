@@ -1,7 +1,11 @@
 #include "ImageLoader.h"
 #include "DxLib.h"
 
-
+/////////////////////////////////////////////////////
+//ˆø”			:‚È‚µ
+//–ß‚è’l		:‚È‚µ
+//“®ì			:Image‚Ìƒ[ƒh
+/////////////////////////////////////////////////////
 void ImageLoader::ImageDiv()
 {
 	LoadDivGraph(fileName[gameImage], 11, 6, 2, 128, 128, gameStageGh);

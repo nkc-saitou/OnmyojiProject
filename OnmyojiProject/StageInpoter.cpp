@@ -7,16 +7,74 @@
 
 StageInpoter::StageInpoter()
 {
+	// csvファイルの名前を取得
 	GetFileData(fileNameVec);
+
+	vector<vector<int>> tempStageData;
 
 	for (int i = 0; i < fileNameVec.size(); i++)
 	{
 		//　ステージデータ読み込み
-		if (IsSplit(fileNameVec[i], tempStageData) == false) return;
+		if (IsSplit(fileNameVec[i], tempStageData))
+		{
+			AssortmentStageData(i, tempStageData);
 
-		stageData.push_back(tempStageData);
+			stageData.push_back(tempStageData);
+			tempStageData.clear();
+		}
+	}
+}
 
-		tempStageData.clear();
+/////////////////////////////////////////////////////
+//引数			:ファイル全体の数、１ステージごとのデータ
+//戻り値		:なし
+//動作			:動くオブジェクト(岩、プレイヤー、敵)の座標を取得
+//               ステージ情報から動くオブジェクトの情報を分離する
+/////////////////////////////////////////////////////
+void StageInpoter::AssortmentStageData(int num, vector<vector<int>>& stageData)
+{
+	for (int y = 0; y < stageY; y++)
+	{
+		// 仮の位置情報
+		vector<position> tempRockPosData;
+		vector<position> tempEnemyOnePosData;
+		vector<position> tempEnemyTwoPosData;
+		
+		for (int x = 0; x < stageX; x++)
+		{
+			position tempPos;
+			tempPos.x = x;
+			tempPos.y = y;
+
+			// 初期位置の情報を配列に格納
+			switch (stageData[y][x])
+			{
+			case chip_rock:
+				tempRockPosData.push_back(tempPos);
+				break;
+
+			case chip_playerStartPos:
+				playerPosData.push_back(tempPos);
+				break;
+
+			case chip_enemy_one_StartPos:
+				tempEnemyOnePosData.push_back(tempPos);
+				break;
+
+			case chip_enemy_two_StartPos:
+				tempEnemyTwoPosData.push_back(tempPos);
+				break;
+
+			default: continue;
+			}
+
+			// 動くオブジェクトがあった位置はemptyとして書き換え、分離させておく
+			stageData[y][x] = chip_empty;
+		}
+
+		rockPosData.push_back(tempRockPosData);
+		enemyOnePosData.push_back(tempEnemyOnePosData);
+		enemyTwoPosData.push_back(tempEnemyTwoPosData);
 	}
 }
 
@@ -28,7 +86,7 @@ StageInpoter::StageInpoter()
 bool StageInpoter::IsSplit(const string& fileName, vector<vector<int>>& stageData, const char delim)
 {
 	//ファイルを開く
-	fstream file("../OnmyojiProject/StageData/" + fileName);
+	fstream file(dataPath + fileName);
 
 	// ファイルが開けなかった場合は終了
 	if (!file.is_open()) return false;
@@ -42,6 +100,8 @@ bool StageInpoter::IsSplit(const string& fileName, vector<vector<int>>& stageDat
 		vector<int> record;
 		istringstream streamBuffer(buffer);
 		string token;
+
+		token = token.substr(0, token.find_last_not_of(' ') + 1);
 
 		while (getline(streamBuffer, token, delim))
 		{

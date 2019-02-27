@@ -2,6 +2,13 @@
 
 #include "Singleton.h"
 
+/*
+///////////////////////////////////////////
+ImageDataIndex
+
+概要　：全てのイメージデータの順番を列挙
+///////////////////////////////////////////
+*/
 enum ImageDataIndex
 {
 	gameImage,
@@ -12,11 +19,23 @@ enum ImageDataIndex
 	maxImage
 };
 
+/*
+///////////////////////////////////////////
+ImageLoaderクラス
+
+概要　：Image管理クラス
+///////////////////////////////////////////
+*/
 class ImageLoader : public Singleton <ImageLoader>
 {
+	//===============================
+	// 変数
+	//===============================
 
+	// ImageのPath
 	const char* path = "../OnmyojiProject/Image/";
 
+	// ファイルネーム
 	const char* fileName[maxImage] =
 	{
 		"../OnmyojiProject/Image/TestMapChip5.png" ,
@@ -26,7 +45,7 @@ class ImageLoader : public Singleton <ImageLoader>
 		"../OnmyojiProject/Image/BackGround_1.png",
 	};
 
-
+	// グラフィックハンドル
 	int gameStageGh[11];
 	int toolStageGh[11];
 	int playerWalkGh[16];
@@ -34,13 +53,19 @@ class ImageLoader : public Singleton <ImageLoader>
 	int backGroundGh;
 
 
+	//===============================
+	// 関数
+	//===============================
 public:
 
 	void ImageDiv();
 
-	int* GameStageGH() { return gameStageGh; }
-	int* ToolStageGH() { return toolStageGh; }
-	int* PlayerWalkGH() { return playerWalkGh; }
-	int* PlayerIdolGH() { return playerIdolGh; }
-	int BackGroundGH() { return backGroundGh; }
+	//===============================
+	// ゲッター
+	//===============================
+	int* GetGameStageGH() { return gameStageGh; }
+	int* GetToolStageGH() { return toolStageGh; }
+	int* GetPlayerWalkGH() { return playerWalkGh; }
+	int* GetPlayerIdolGH() { return playerIdolGh; }
+	int GetBackGroundGH() { return backGroundGh; }
 };

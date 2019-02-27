@@ -40,7 +40,7 @@ class Control
 	// •Ï”
 	//===============================
 
-	unique_ptr<GameScene> gameScene = make_unique<GameScene>(0);
+	unique_ptr<GameScene> gameScene = make_unique<GameScene>();
 
 	// Œ»İ‚ÌƒV[ƒ“
 	SceneState sceneState;

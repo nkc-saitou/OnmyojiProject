@@ -8,27 +8,75 @@ using namespace std;
 
 /*
 ///////////////////////////////////////////
+position構造体
+
+概要　：座標情報
+///////////////////////////////////////////
+*/
+struct position
+{
+	int x;
+	int y;
+};
+
+/*
+///////////////////////////////////////////
+ChipType列挙隊
+
+概要　：cvsデータに含まれるチップデータをそれぞれ列挙
+///////////////////////////////////////////
+*/
+enum ChipType
+{
+	chip_empty = 0,
+	chip_still,
+	chip_rock,
+	chip_playerStartPos,
+	chip_enemy_one_StartPos,
+	chip_enemy_two_StartPos,
+	chip_ster_one,
+	chip_star_two,
+	chip_star_three,
+	chip_star_four,
+	chip_star_five
+};
+
+/*
+///////////////////////////////////////////
 StageInpoterクラス
 
 概要　：ステージの読み込み処理
 ///////////////////////////////////////////
 */
-
 class StageInpoter :public Singleton <StageInpoter>
 {
 	//===============================
 	// 変数
 	//===============================
 
+	// csvステージデータのパス
+	const string dataPath = "../OnmyojiProject/StageData/";
+
+	// ステージデータの大きさ
+	const int stageX = 30;
+	const int stageY = 17;
+
+
 	// 読み込みデータの名前
 	vector<string> fileNameVec;
 	
+	// ステージの情報
 	vector<vector<vector<int>>> stageData;
 
-	vector<vector<int>> tempStageData;
+	// プレイヤーの初期位置
+	vector<position> playerPosData;
 
-	const int stageX = 30;
-	const int stageY = 17;
+	// 岩の初期位置
+	vector<vector<position>> rockPosData;
+
+	// 敵の位置
+	vector<vector<position>> enemyOnePosData;
+	vector<vector<position>> enemyTwoPosData;
 
 
 	//===============================
@@ -40,21 +88,35 @@ class StageInpoter :public Singleton <StageInpoter>
 
 	void GetFileData(vector<string>& file);
 
+	// 動くデータとの仕分け
+	void AssortmentStageData(int num,vector<vector<int>>& stageData);
+
 
 public:
 
 	StageInpoter();
 
 	//===============================
-	// プロパティ
+	// ゲッター
 	//===============================
 
-	// ステージデータ　ゲッター
+	// ステージデータ
 	vector<vector<vector<int>>> GetStageData(){ return stageData; }
 
-	// ステージの数
-	int StageCount() { return fileNameVec.size(); }
+	// プレイヤーの初期ポジション
+	vector<position> GetPlayerPosData() { return playerPosData; }
 
-	int StageWidth() { return stageX; }
-	int StageHeight() { return stageY; }
+	// 岩の初期ポジション
+	vector<vector<position>> GetRockPosData() { return rockPosData; }
+
+	// 敵の初期ポジション
+	vector<vector<position>> GetEnemyOnePosData() { return enemyOnePosData; }
+	vector<vector<position>> GetEnemyTwoPosData() { return enemyTwoPosData; }
+
+	// ステージの数
+	int GetStageCount() { return fileNameVec.size(); }
+
+	// ステージ縦横
+	int GetStageWidth() { return stageX; }
+	int GetStageHeight() { return stageY; }
 };

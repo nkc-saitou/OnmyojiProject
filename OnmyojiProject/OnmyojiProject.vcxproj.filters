@@ -93,8 +93,4 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="StageData\TestStageData.csv" />
-    <None Include="StageData\TestStageData2.csv" />
-  </ItemGroup>
 </Project>

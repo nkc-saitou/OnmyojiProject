@@ -4,17 +4,21 @@
 #include "Input.h"
 #include "FpsFix.h"
 #include "Control.h"
+#include "SettingProvider.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	// 1920x1080
-	const int screenSizeX = 1920;
-	const int screenSizeY = 1080;
+	const int screenSizeX = SettingProvider::screenSizeX;
+	const int screenSizeY = SettingProvider::screenSizeY;
+
+	// 使用する色のビット数
+	const int colorBitDepth = 32;
 
 	//ウィンドウ表示
 	ChangeWindowMode(true);
 	SetMainWindowText("陰陽師");
-	SetGraphMode(screenSizeX, screenSizeY, 32);//画面サイズ指定
+	SetGraphMode(screenSizeX, screenSizeY, colorBitDepth);//画面サイズ指定
 
 	//DXライブラリの初期化処理
 	if (DxLib_Init() == -1) return -1;	//エラーが起きたら終了

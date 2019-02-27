@@ -141,6 +141,7 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="SettingProvider.h" />
     <ClInclude Include="StageDraw.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Player.h" />

@@ -19,9 +19,9 @@ class ImageLoader : public Singleton <ImageLoader>
 
 	const char* fileName[maxImage] =
 	{
+		"../OnmyojiProject/Image/TestMapChip5.png" ,
 		"../OnmyojiProject/Image/TestMapChip4.png" ,
-		"../OnmyojiProject/Image/TestMapChip4.png" ,
-		"../OnmyojiProject/Image/test.png" ,
+		"../OnmyojiProject/Image/PlayerRun.png" ,
 		"../OnmyojiProject/Image/Player_idol.png",
 		"../OnmyojiProject/Image/BackGround_1.png",
 	};
@@ -29,7 +29,7 @@ class ImageLoader : public Singleton <ImageLoader>
 
 	int gameStageGh[11];
 	int toolStageGh[11];
-	int playerWalkGh[12];
+	int playerWalkGh[16];
 	int playerIdolGh[8];
 	int backGroundGh;
 

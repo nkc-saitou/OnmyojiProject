@@ -1,8 +1,11 @@
 #include "Player.h"
 #include "DxLib.h"
 #include "Input.h"
+#include "SettingProvider.h"
 
 #include <cmath>
+
+#define STR(var) #var 
 
 
 /////////////////////////////////////////////////////
@@ -12,14 +15,19 @@
 /////////////////////////////////////////////////////
 void Player::Move()
 {
+	// 1920x1080
+	const int screenSizeX = SettingProvider::screenSizeX;
+	const int screenSizeY = SettingProvider::screenSizeY;
+
 	// 絶対値に変換
 	int moveX = abs(tempMoveX);
 	int moveY = abs(tempMoveY);
 
 	// 絶対値でどの方向の入力がされているのかを取得
 	// まっすぐ移動していたら 1.0f ななめ移動していたら 0.71f
-	if ((moveX == 1000 || moveY == 1000) && (moveX == 0 || moveY == 0)) move = 1.0f;
-	else if(moveX != 0) move = 0.71f;
+	if ((moveX >= 900 || moveY >= 900) && (moveX == 0 || moveY == 0)) move = straightMove;
+	else if(moveX != 0 && moveY != 0) move = tiltMove;
+	else move = straightMove;
 
 	// 移動処理
 	if (tempMoveX < 0) x -= (int)(speed * move);
@@ -28,11 +36,15 @@ void Player::Move()
 	if (tempMoveY > 0) y += (int)(speed * move);
 
 	// ｘ方向、画面外に出ないように
-	if (x + 64 > 1920) x = 1920 - 64;
-	if (x < 64) x = 64;
+	if (x + graphSize > screenSizeX) x = screenSizeX - graphSize;
+	if (x < graphSize) x = graphSize;
 	// ｙ方向、画面外に出ないように
-	if (y + 64 > 1080) y = 1080 -64;
-	if (y < 64) y = 64;
+	if (y + graphSize > screenSizeY) y = screenSizeY - graphSize;
+	if (y < graphSize) y = graphSize;
+
+	// 移動を止めた時は、idol状態の画像に変更する
+	if (tempMoveX == 0 && tempMoveY == 0) isMove = false;
+	else isMove = true;
 }
 
 /////////////////////////////////////////////////////
@@ -48,10 +60,10 @@ void Player::MoveGraphSet()
 		directionState = left;
 
 		// xCountが０以上なら０にしてから１引く
-		if (xCount > 0) xCount = 0;
+		if (moveCountX > 0) moveCountX = 0;
 
-		if(xCount < 30) --xCount;
-		else xCount = 0;
+		if(moveCountX < 40) --moveCountX;
+		else moveCountX = 0;
 	}
 	// 右に移動している
 	if (tempMoveX > 0)
@@ -59,10 +71,10 @@ void Player::MoveGraphSet()
 		directionState = right;
 
 		// xCountが０以下なら０にしてから１足す
-		if (xCount < 0) xCount = 0;
+		if (moveCountX < 0) moveCountX = 0;
 
-		if(xCount > -30) ++xCount;
-		else xCount = 0;
+		if(moveCountX > -40) ++moveCountX;
+		else moveCountX = 0;
 	}
 	// 上に移動している
 	if (tempMoveY < 0)
@@ -70,10 +82,10 @@ void Player::MoveGraphSet()
 		directionState = up;
 
 		// yCountが０以上なら０にしてから１引く
-		if (yCount > 0) yCount = 0;
+		if (moveCountY > 0) moveCountY = 0;
 
-		if(yCount < 30) --yCount;
-		else yCount = 0;
+		if(moveCountY < 40) --moveCountY;
+		else moveCountY = 0;
 	}
 	// 下に移動している
 	if (tempMoveY > 0)
@@ -81,61 +93,75 @@ void Player::MoveGraphSet()
 		directionState = down;
 
 		// yCountが０以下なら０にしてから１足す
-		if (yCount < 0) yCount = 0;
+		if (moveCountY < 0) moveCountY = 0;
 
-		if(yCount > -30) ++yCount;
-		else yCount = 0;
+		if(moveCountY > -40) ++moveCountY;
+		else moveCountY = 0;
 	}
 
 	// カウント数から添え字を求める
-	ix = abs(xCount) % 30 / 10;
-	iy = abs(yCount) % 30 / 10;
+	tempMoveIndexX = abs(moveCountX) % 40 / 10;
+	tempMoveIndexY = abs(moveCountY) % 40 / 10;
 
-	// 右を向いている
-	if (xCount > 0)
-	{
-		// 右向きなので、３行目の先頭添え字番号を足す
-		ix += divisionX * 2;
-		result = ix;
-	}
-	// 左を向いている
-	else if (xCount < 0)
-	{
-		// 左向きなので、２行目の先頭添え字配列を足す
-		ix += divisionX;
-		result = ix;
-	}
-
-	// 下を向いている
-	if (yCount < 0)
-	{
-		// 下向きなので、４行目の先頭添え字配列を足す
-		iy += divisionX * 3;
-		result = iy;
-	}
-	// 上を向いている
-	else if (yCount > 0)
-	{
-		result = iy;
-	}
 
 	// 斜め移動の場合は横顔を優先
-	if (move == 0.71f) result = ix;
+	if (move == tiltMove)
+	{
+		if (moveCountX > 0) directionState = right;
+		else directionState = left;
+
+		moveIndex = tempMoveIndexX;
+	}
+
+
+	switch (directionState)
+	{
+	case up:
+		// 下向きなので、２行目の先頭添え字配列を足す
+		tempMoveIndexY += moveDivX;
+		moveIndex = tempMoveIndexY;
+		break;
+
+	case down: 
+		// 上向きなので、１行目の先頭添え字配列をresultに渡す
+		moveIndex = tempMoveIndexY;
+		break;
+
+	case left: 
+		// 左向きなので、３行目の先頭添え字配列を足す
+		tempMoveIndexX += moveDivX * left;
+		moveIndex = tempMoveIndexX;
+		break;
+
+	case right: 
+		// 右向きなので、４行目の先頭添え字番号を足す
+		tempMoveIndexX += moveDivX * right;
+		moveIndex = tempMoveIndexX;
+		break;
+	}
+
+	int t = directionState;
+
+	DrawFormatString(100, 100, GetColor(255, 0, 0), "direction : %d  x:%d y:%d", t, moveCountX, moveCountY);
 
 	// 移動していない場合は値を初期化
-	if (tempMoveY == 0) yCount = 0;
-	if (tempMoveX == 0) xCount = 0;
+	if (tempMoveY == 0) moveCountY = 0;
+	if (tempMoveX == 0) moveCountX = 0;
+}
 
-	// 移動を止めた時は、止まる前まで向いていた方向の絵の先頭を表示する
-	if (tempMoveX == 0 && tempMoveY == 0)
+void Player::IdolGraphSet()
+{
+	if (stopCount < 20) ++stopCount;
+	else stopCount = 0;
+
+	tempStopIndex = stopCount % 20 / 10;
+	
+	switch (directionState)
 	{
-		switch (directionState)
-		{
-		case down:	result = 0;				break;
-		case left:	result = divisionX;		break;
-		case right:	result = divisionX * 2; break;
-		case up:	result = divisionX * 3; break;
-		}
+	case down:	stopIndex = tempStopIndex;						break;
+	case up:	stopIndex = tempStopIndex + stopDivX;			break;
+	case left:	stopIndex = tempStopIndex + stopDivX * left;	break;
+	case right: stopIndex = tempStopIndex + stopDivX * right;	break;
 	}
 }
 
@@ -157,13 +183,13 @@ void Player::Collision()
 /////////////////////////////////////////////////////
 void Player::Draw()
 {
-	DrawFormatString(100, 100, GetColor(255, 255, 255), "x:%lf y:%lf",x, y);
 
 	MoveGraphSet();
+	IdolGraphSet();
 
 	// プレイヤー表示
-	DrawGraph(x, y, ImageLoader::Instance()->PlayerWalkGH()[result], TRUE);
-	DrawCircle(x, y, 10, GetColor(255, 0, 0), TRUE);
+	if(isMove) DrawGraph(x, y, ImageLoader::Instance()->PlayerWalkGH()[moveIndex], TRUE);
+	else DrawGraph(x, y, ImageLoader::Instance()->PlayerIdolGH()[stopIndex], TRUE);
 }
 
 /////////////////////////////////////////////////////
@@ -194,7 +220,7 @@ void Player::Updata()
 	tempMoveY = Input::Instance()->AngleInputY(Pad_1);
 
 
-	DrawFormatString(100, 600, GetColor(255, 255, 255), "top:%lf bottom:%lf left:%lf right:%lf", GetTop(), GetBottom(),GetLeft(),GetRight());
+	//DrawFormatString(100, 600, GetColor(255, 255, 255), "top:%lf bottom:%lf left:%lf right:%lf", GetTop(), GetBottom(),GetLeft(),GetRight());
 
 	Move();
 	Draw();

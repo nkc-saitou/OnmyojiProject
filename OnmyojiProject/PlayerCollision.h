@@ -13,7 +13,7 @@ class PlayerCollision
 
 public:
 
-	bool OnCollision();
+	bool OnCollision(Rect& collisionRect);
 
 	void SetRockRect(int stageNum);
 

@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "SettingProvider.h"
 #include "StageInpoter.h"
+#include "Collision.h"
 
 #include <cmath>
 
@@ -180,10 +181,16 @@ void Player::IdolGraphSet()
 /////////////////////////////////////////////////////
 void Player::Collision()
 {
-	if (playerCollision->OnCollision())
+	Rect collisionRect;
+
+	if (playerCollision->OnCollision(collisionRect))
 	{
-		x = memoryX;
-		y = memoryY;
+		int vectX = x - memoryX;
+		int vectY = y - memoryY;
+
+		if (vectX < 0 || vectX > 0) x++;
+		if (vectY < 0 || vectY > 0) y++;
+
 		return;
 	}
 

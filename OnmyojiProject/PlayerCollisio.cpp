@@ -1,8 +1,8 @@
 #include "PlayerCollision.h"
 
-bool PlayerCollision::OnCollision()
+bool PlayerCollision::OnCollision(Rect& collisionRect)
 {
-	if (stageCollision->OnCollision(playerRect)) return true;
+	if (stageCollision->OnCollision(playerRect,collisionRect)) return true;
 	else return false;
 }
 

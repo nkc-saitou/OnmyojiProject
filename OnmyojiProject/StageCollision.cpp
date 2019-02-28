@@ -18,12 +18,15 @@ void StageCollision::CollisionRangeSet()
 	}
 }
 
-bool StageCollision::OnCollision(Rect targetRect)
+bool StageCollision::OnCollision(Rect playerRect, Rect& collisionRect)
 {
 	for (int i = 0; i < collisionRange.size(); i++)
 	{
-		if (Collision::Instance()->CheckRectAndRect(targetRect, collisionRange[i]))
+		if (Collision::Instance()->CheckRectAndRect(playerRect, collisionRange[i]))
+		{
+			collisionRect = collisionRange[i];
 			return true;
+		}
 	}
 
 	return false;

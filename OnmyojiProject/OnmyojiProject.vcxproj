@@ -127,6 +127,9 @@
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
+    <ClCompile Include="PlayerCollisio.cpp" />
+    <ClCompile Include="Rock.cpp" />
+    <ClCompile Include="StageCollision.cpp" />
     <ClCompile Include="StageDraw.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -141,7 +144,10 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="ImageLoader.h" />
+    <ClInclude Include="PlayerCollision.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="SettingProvider.h" />
+    <ClInclude Include="StageCollision.h" />
     <ClInclude Include="StageDraw.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Player.h" />

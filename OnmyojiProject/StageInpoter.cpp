@@ -10,20 +10,77 @@ StageInpoter::StageInpoter()
 	// csvファイルの名前を取得
 	GetFileData(fileNameVec);
 
+
 	vector<vector<int>> tempStageData;
 
 	for (int i = 0; i < fileNameVec.size(); i++)
 	{
+		vector<position> tempStageCollisionPos;
+
 		//　ステージデータ読み込み
 		if (IsSplit(fileNameVec[i], tempStageData))
 		{
+			// ステージデータの仕分け(動かない壁のみステージデータに残し、後は別で他の配列に保存しておく)
 			AssortmentStageData(i, tempStageData);
-
+			// ステージデータを保存
 			stageData.push_back(tempStageData);
+
+			// 当たり判定データの保存
+			tempStageCollisionPos = StageCollisionSet(tempStageData);
+
 			tempStageData.clear();
 		}
+
+		// 当たり判定のデータを格納
+		stageCollisionPos.push_back(tempStageCollisionPos);
 	}
 }
+
+vector<position> StageInpoter::StageCollisionSet(vector<vector<int>> tempData)
+{
+	vector<position> stillChipData;
+
+	for (int i = 0; i < tempData.size(); i++)
+	{
+		for (int j = 0; j < tempData[i].size(); j++)
+		{
+			if (IsEdgeCollision(j, i,tempData))
+			{
+				position tempPos;
+				tempPos.x = j;
+				tempPos.y = i;
+
+				stillChipData.push_back(tempPos);
+			}
+		}
+	}
+
+	return stillChipData;
+}
+
+bool StageInpoter::IsEdgeCollision(int x, int y, vector<vector<int>> tempData)
+{
+	// 動かない壁以外の当たり判定はここでは考えない
+	if (tempData[y][x] != chip_still) return false;
+
+	// ステージ端は変わることがないため、端の当たり判定はここでは考えない
+	if (IsStageEdge(x, y) == true) return false;
+
+	// 周りを壁で囲まれた当たり判定については、判定を設定する必要はない
+	if (tempData[y][x + 1] == chip_still && tempData[y][x - 1] == chip_still &&
+		tempData[y + 1][x] == chip_still && tempData[y - 1][x] == chip_still)
+		return false;
+
+	// それ以外の壁は当たり判定を設定する
+	return true;
+}
+
+bool StageInpoter::IsStageEdge(int x, int y)
+{
+	if (y == 0 || y >= stageY - 1 || x == 0 || x >= stageX - 1) return true;
+	else return false;
+}
+
 
 /////////////////////////////////////////////////////
 //引数			:ファイル全体の数、１ステージごとのデータ
@@ -45,6 +102,9 @@ void StageInpoter::AssortmentStageData(int num, vector<vector<int>>& stageData)
 			position tempPos;
 			tempPos.x = x;
 			tempPos.y = y;
+
+			DrawFormatString(100, 200, GetColor(255, 0, 0), "direction : %d %d", tempPos.x, tempPos.y);
+
 
 			// 初期位置の情報を配列に格納
 			switch (stageData[y][x])

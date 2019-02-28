@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "StageInpoter.h";
+#include "StageInpoter.h"
 
 using namespace std;
 

@@ -2,8 +2,14 @@
 #include "DxLib.h"
 #include "Input.h"
 #include "SettingProvider.h"
+#include "StageInpoter.h"
 
 #include <cmath>
+
+Player::Player()
+{
+	playerCollision->SetRockRect(stageNum);
+}
 
 /////////////////////////////////////////////////////
 //ˆø”			:‚È‚µ
@@ -13,8 +19,8 @@
 void Player::Move()
 {
 	// 1920x1080
-	const int screenSizeX = SettingProvider::screenSizeX;
-	const int screenSizeY = SettingProvider::screenSizeY;
+	const int screenSizeX = SettingProvider::Instance()->screenSizeX;
+	const int screenSizeY = SettingProvider::Instance()->screenSizeY;
 
 	// â‘Î’l‚É•ÏŠ·
 	int moveX = abs(tempMoveX);
@@ -33,10 +39,10 @@ void Player::Move()
 	if (tempMoveY > 0) y += (int)(speed * move);
 
 	// ‚˜•ûŒüA‰æ–ÊŠO‚Éo‚È‚¢‚æ‚¤‚É
-	if (x + graphSize > screenSizeX) x = screenSizeX - graphSize;
+	if (x + graphSize * 2 > screenSizeX) x = screenSizeX - graphSize * 2;
 	if (x < graphSize) x = graphSize;
 	// ‚™•ûŒüA‰æ–ÊŠO‚Éo‚È‚¢‚æ‚¤‚É
-	if (y + graphSize > screenSizeY) y = screenSizeY - graphSize;
+	if (y + graphSize * 2 > screenSizeY) y = screenSizeY - graphSize * 2;
 	if (y < graphSize) y = graphSize;
 
 	// ˆÚ“®‚ðŽ~‚ß‚½Žž‚ÍAidoló‘Ô‚Ì‰æ‘œ‚É•ÏX‚·‚é
@@ -54,7 +60,7 @@ void Player::MoveGraphSet()
 	// ¶‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 	if (tempMoveX < 0)
 	{
-		directionState = left;
+		directionState = leftDir;
 
 		// xCount‚ª‚OˆÈã‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚Pˆø‚­
 		if (moveCountX > 0) moveCountX = 0;
@@ -65,7 +71,7 @@ void Player::MoveGraphSet()
 	// ‰E‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 	if (tempMoveX > 0)
 	{
-		directionState = right;
+		directionState = rightDir;
 
 		// xCount‚ª‚OˆÈ‰º‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚P‘«‚·
 		if (moveCountX < 0) moveCountX = 0;
@@ -76,7 +82,7 @@ void Player::MoveGraphSet()
 	// ã‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 	if (tempMoveY < 0)
 	{
-		directionState = up;
+		directionState = upDir;
 
 		// yCount‚ª‚OˆÈã‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚Pˆø‚­
 		if (moveCountY > 0) moveCountY = 0;
@@ -87,7 +93,7 @@ void Player::MoveGraphSet()
 	// ‰º‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 	if (tempMoveY > 0)
 	{
-		directionState = down;
+		directionState = downDir;
 
 		// yCount‚ª‚OˆÈ‰º‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚P‘«‚·
 		if (moveCountY < 0) moveCountY = 0;
@@ -104,8 +110,8 @@ void Player::MoveGraphSet()
 	// ŽÎ‚ßˆÚ“®‚Ìê‡‚Í‰¡Šç‚ð—Dæ
 	if (move == tiltMove)
 	{
-		if (moveCountX > 0) directionState = right;
-		else directionState = left;
+		if (moveCountX > 0) directionState = rightDir;
+		else directionState = leftDir;
 
 		moveIndex = tempMoveIndexX;
 	}
@@ -113,33 +119,33 @@ void Player::MoveGraphSet()
 
 	switch (directionState)
 	{
-	case up:
+	case upDir:
 		// ‰ºŒü‚«‚È‚Ì‚ÅA‚Qs–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ð‘«‚·
 		tempMoveIndexY += moveDivX;
 		moveIndex = tempMoveIndexY;
 		break;
 
-	case down: 
+	case downDir: 
 		// ãŒü‚«‚È‚Ì‚ÅA‚Ps–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ðresult‚É“n‚·
 		moveIndex = tempMoveIndexY;
 		break;
 
-	case left: 
+	case leftDir: 
 		// ¶Œü‚«‚È‚Ì‚ÅA‚Rs–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ð‘«‚·
-		tempMoveIndexX += moveDivX * left;
+		tempMoveIndexX += moveDivX * leftDir;
 		moveIndex = tempMoveIndexX;
 		break;
 
-	case right: 
+	case rightDir: 
 		// ‰EŒü‚«‚È‚Ì‚ÅA‚Ss–Ú‚Ìæ“ª“Y‚¦Žš”Ô†‚ð‘«‚·
-		tempMoveIndexX += moveDivX * right;
+		tempMoveIndexX += moveDivX * rightDir;
 		moveIndex = tempMoveIndexX;
 		break;
 	}
 
 	int t = directionState;
 
-	DrawFormatString(100, 100, GetColor(255, 0, 0), "direction : %d  x:%d y:%d", t, moveCountX, moveCountY);
+	//DrawFormatString(100, 100, GetColor(255, 0, 0), "direction : %d  x:%d y:%d", t, moveCountX, moveCountY);
 
 	// ˆÚ“®‚µ‚Ä‚¢‚È‚¢ê‡‚Í’l‚ð‰Šú‰»
 	if (tempMoveY == 0) moveCountY = 0;
@@ -160,10 +166,10 @@ void Player::IdolGraphSet()
 	
 	switch (directionState)
 	{
-	case down:	stopIndex = tempStopIndex;						break;
-	case up:	stopIndex = tempStopIndex + stopDivX;			break;
-	case left:	stopIndex = tempStopIndex + stopDivX * left;	break;
-	case right: stopIndex = tempStopIndex + stopDivX * right;	break;
+	case downDir:	stopIndex = tempStopIndex;						break;
+	case upDir:		stopIndex = tempStopIndex + stopDivX;			break;
+	case leftDir:	stopIndex = tempStopIndex + stopDivX * leftDir;	break;
+	case rightDir:	stopIndex = tempStopIndex + stopDivX * rightDir;break;
 	}
 }
 
@@ -174,7 +180,15 @@ void Player::IdolGraphSet()
 /////////////////////////////////////////////////////
 void Player::Collision()
 {
+	if (playerCollision->OnCollision())
+	{
+		x = memoryX;
+		y = memoryY;
+		return;
+	}
 
+	memoryX = x;
+	memoryY = y;
 }
 
 
@@ -201,14 +215,24 @@ void Player::Draw()
 /////////////////////////////////////////////////////
 void Player::SetPosition()
 {
-	double top	  =  y;
+	double top	  =  y + 32;
 	double bottom =  y + graphSize;
-	double left   =  x;
-	double right  =  x + graphSize;
+	double left   =  x + 16;
+	double right  =  x + graphSize - 16;
 
 	SetValue(&top, &bottom, &left, &right);
 }
 
+/////////////////////////////////////////////////////
+//ˆø”			:‚È‚µ
+//–ß‚è’l		:‚È‚µ
+//“®ì			:ƒXƒ^[ƒgŽž‚Ìƒ|ƒWƒVƒ‡ƒ“‚ðƒZƒbƒg
+/////////////////////////////////////////////////////
+void Player::SetStartPos(double posX, double posY)
+{
+	x = posX * graphSize + (graphSize / 2);
+	y = posY * graphSize + (graphSize / 2);
+}
 
 /////////////////////////////////////////////////////
 //ˆø”			:‚È‚µ
@@ -226,5 +250,9 @@ void Player::Updata()
 
 	Move();
 	Draw();
+
 	SetPosition();
+	playerCollision->SetPlayerRect(rect);
+
+	Collision();
 }

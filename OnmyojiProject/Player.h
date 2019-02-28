@@ -2,6 +2,9 @@
 
 #include "RectShape.h"
 #include "ImageLoader.h"
+#include "PlayerCollision.h"
+#include "SettingProvider.h"
+
 #include <memory>
 
 /*
@@ -13,10 +16,10 @@ Direction列挙隊
 */
 enum Direction
 {
-	up = 0,
-	down,
-	left,
-	right
+	upDir = 0,
+	downDir,
+	leftDir,
+	rightDir
 };
 
 /*
@@ -33,6 +36,8 @@ class  Player : public RectShape
 	//===============================
 
 private:
+
+	unique_ptr<PlayerCollision> playerCollision = make_unique<PlayerCollision>();
 
 	// イメージのサイズ。縦横ともに64px
 	const int graphSize = 64;
@@ -55,9 +60,13 @@ private:
 	//添え時用変数
 	int tempMoveIndexX = 0, tempMoveIndexY = 0, moveIndex = 0;
 
+	int stageNum = SettingProvider::Instance()->GetStageNumber();
+
+	int memoryX = x;
+	int memoryY = y;
 
 	// 座標
-	double x = 360, y = 200;
+	double x, y;
 
 	//移動しているかどうか 移動していたらtrue
 	bool isMove = false;
@@ -76,7 +85,7 @@ private:
 	double tiltMove = 0.71;
 
 	// 現在の方向
-	Direction directionState = down;
+	Direction directionState = downDir;
 
 	//===============================
 	// 関数
@@ -96,6 +105,11 @@ private:
 	void SetPosition();
 
 public:
+
+	Player();
+
+	// スタート時のポジションをセット
+	void SetStartPos(double posX,double posY);
 
 	void Updata();
 };

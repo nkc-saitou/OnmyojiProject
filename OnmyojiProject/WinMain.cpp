@@ -9,8 +9,8 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	// 1920x1080
-	const int screenSizeX = SettingProvider::screenSizeX;
-	const int screenSizeY = SettingProvider::screenSizeY;
+	const int screenSizeX = SettingProvider::Instance()->screenSizeX;
+	const int screenSizeY = SettingProvider::Instance()->screenSizeY;
 
 	// 使用する色のビット数
 	const int colorBitDepth = 32;

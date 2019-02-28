@@ -15,8 +15,8 @@ position構造体
 */
 struct position
 {
-	int x;
-	int y;
+	double x;
+	double y;
 };
 
 /*
@@ -61,12 +61,16 @@ class StageInpoter :public Singleton <StageInpoter>
 	const int stageX = 30;
 	const int stageY = 17;
 
+	//unique_ptr<StageCollision> stageCollision = make_unique<StageCollision>();
+
 
 	// 読み込みデータの名前
 	vector<string> fileNameVec;
 	
 	// ステージの情報
 	vector<vector<vector<int>>> stageData;
+
+	vector<vector<position>> stageCollisionPos;
 
 	// プレイヤーの初期位置
 	vector<position> playerPosData;
@@ -77,6 +81,7 @@ class StageInpoter :public Singleton <StageInpoter>
 	// 敵の位置
 	vector<vector<position>> enemyOnePosData;
 	vector<vector<position>> enemyTwoPosData;
+
 
 
 	//===============================
@@ -91,6 +96,13 @@ class StageInpoter :public Singleton <StageInpoter>
 	// 動くデータとの仕分け
 	void AssortmentStageData(int num,vector<vector<int>>& stageData);
 
+	vector<position> StageCollisionSet(vector<vector<int>> tempData);
+
+	// 当たり判定を付ける壁(プレイヤーと接触の可能性がある外側の壁)かどうか
+	bool IsEdgeCollision(int x, int y , vector<vector<int>> tempData);
+
+	bool IsStageEdge(int x, int y);
+
 
 public:
 
@@ -102,6 +114,9 @@ public:
 
 	// ステージデータ
 	vector<vector<vector<int>>> GetStageData(){ return stageData; }
+
+	// 当たり判定用データ
+	vector<vector<position>> GetCollisionData() { return stageCollisionPos; }
 
 	// プレイヤーの初期ポジション
 	vector<position> GetPlayerPosData() { return playerPosData; }

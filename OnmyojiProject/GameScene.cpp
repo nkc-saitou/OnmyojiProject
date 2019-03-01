@@ -14,12 +14,23 @@ void GameScene::SetStageNum(int num)
 
 	SettingProvider::Instance()->SetStageNumber(num);
 
+	player->SetStageNumber(num);
+
 	// StageDrawにステージデータを渡す
 	stageDraw->SetStageData(StageInpoter::Instance()->GetStageData()[num]);
 
 	// プレイヤーの初期位置を取得
 	position pos = StageInpoter::Instance()->GetPlayerPosData()[num];
 	player->SetStartPos(pos.x, pos.y);
+
+
+	vector<position> rockPos = StageInpoter::Instance()->GetRockPosData()[num];
+
+	for (int i = 0; i < rockPos.size(); i++)
+	{
+		rock.emplace_back(make_unique<Rock>());
+		rock[i]->SetStartPos(rockPos[i].x, rockPos[i].y);
+	}
 
 	// テスト描画用。
 	testVec = StageInpoter::Instance()->GetCollisionData()[num];
@@ -32,19 +43,19 @@ void GameScene::SetStageNum(int num)
 /////////////////////////////////////////////////////
 void GameScene::Draw()
 {
-	for (int i = 0; i < testVec.size(); i++)
-	{
-		int x = testVec[i].x;
-		int y = testVec[i].y;
-		//DrawCircle(32 + x * 64,32 + y * 64, 5, GetColor(255, 0, 0), TRUE);
+	//for (int i = 0; i < testVec.size(); i++)
+	//{
+		//int x = testVec[i].x;
+		//int y = testVec[i].y;
+		////DrawCircle(32 + x * 64,32 + y * 64, 5, GetColor(255, 0, 0), TRUE);
 
-		int top = y * 64;
-		int left = x * 64;
-		int bottom = top + 64;
-		int right = left + 64;
+		//int top = y * 64;
+		//int left = x * 64;
+		//int bottom = top + 64;
+		//int right = left + 64;
 
-		DrawBox(left, top, right, bottom, GetColor(255, 0, 0), TRUE);
-	}
+		//DrawBox(left, top, right, bottom, GetColor(255, 0, 0), TRUE);
+	//}
 }
 
 /////////////////////////////////////////////////////
@@ -55,7 +66,11 @@ void GameScene::Draw()
 void GameScene::Update()
 {
 	stageDraw->Update();
-	Draw();
+
+	for (int i = 0; i < rock.size(); i++) rock[i]->Update();
+	
+
+	//Draw();
 	player->Updata();
 
 }

@@ -19,7 +19,11 @@ enum Direction
 	upDir = 0,
 	downDir,
 	leftDir,
-	rightDir
+	rightDir,
+	upLeftDir,
+	downLeftDir,
+	upRightDir,
+	downRightDir
 };
 
 /*
@@ -60,8 +64,9 @@ private:
 	//添え時用変数
 	int tempMoveIndexX = 0, tempMoveIndexY = 0, moveIndex = 0;
 
-	int stageNum = SettingProvider::Instance()->GetStageNumber();
+	int stageNum = 0;
 
+	// 移動座標記憶
 	int memoryX = x;
 	int memoryY = y;
 
@@ -71,9 +76,8 @@ private:
 	//移動しているかどうか 移動していたらtrue
 	bool isMove = false;
 
-
 	// 移動スピード
-	double speed = 3.0;
+	double speed = 5.0;
 
 	// 移動係数
 	double move = 1.0;
@@ -86,6 +90,8 @@ private:
 
 	// 現在の方向
 	Direction directionState = downDir;
+
+	Direction collisionRect = downRightDir;
 
 	//===============================
 	// 関数
@@ -106,7 +112,7 @@ private:
 
 public:
 
-	Player();
+	void SetStageNumber(int num);
 
 	// スタート時のポジションをセット
 	void SetStartPos(double posX,double posY);

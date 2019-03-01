@@ -90,13 +90,13 @@ bool StageInpoter::IsStageEdge(int x, int y)
 /////////////////////////////////////////////////////
 void StageInpoter::AssortmentStageData(int num, vector<vector<int>>& stageData)
 {
+	// âºÇÃà íuèÓïÒ
+	vector<position> tempRockPosData;
+	vector<position> tempEnemyOnePosData;
+	vector<position> tempEnemyTwoPosData;
 	for (int y = 0; y < stageY; y++)
 	{
-		// âºÇÃà íuèÓïÒ
-		vector<position> tempRockPosData;
-		vector<position> tempEnemyOnePosData;
-		vector<position> tempEnemyTwoPosData;
-		
+
 		for (int x = 0; x < stageX; x++)
 		{
 			position tempPos;
@@ -132,10 +132,11 @@ void StageInpoter::AssortmentStageData(int num, vector<vector<int>>& stageData)
 			stageData[y][x] = chip_empty;
 		}
 
-		rockPosData.push_back(tempRockPosData);
-		enemyOnePosData.push_back(tempEnemyOnePosData);
-		enemyTwoPosData.push_back(tempEnemyTwoPosData);
 	}
+
+	if (tempRockPosData.size() != 0) rockPosData.push_back(tempRockPosData);
+	if (tempEnemyOnePosData.size() != 0) enemyOnePosData.push_back(tempEnemyOnePosData);
+	if (tempEnemyTwoPosData.size() != 0) enemyTwoPosData.push_back(tempEnemyTwoPosData);
 }
 
 /////////////////////////////////////////////////////

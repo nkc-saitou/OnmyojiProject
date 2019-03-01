@@ -1,9 +1,14 @@
 #pragma once
+
+#include <memory>
+
 #include "Player.h"
 #include "StageInpoter.h"
 #include "StageDraw.h"
 #include "StageCollision.h"
-#include <memory>
+#include "Rock.h"
+
+
 
 /*
 ///////////////////////////////////////////
@@ -17,12 +22,14 @@ class GameScene
 	//===============================
 	// 変数
 	//===============================
+	// ステージ総数
+	const int MaxStageNum = StageInpoter::Instance()->GetStageCount();
+
 	std::unique_ptr<StageDraw> stageDraw = std::make_unique<StageDraw>();
 	std::unique_ptr<Player> player = std::make_unique<Player>();
 	std::unique_ptr<StageCollision> stageCollision = std::make_unique<StageCollision>();
 
-	// ステージ総数
-	const int MaxStageNum = StageInpoter::Instance()->GetStageCount();
+	vector<unique_ptr<Rock>> rock;
 
 	vector<position> testVec;
 

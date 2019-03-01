@@ -7,8 +7,9 @@
 
 #include <cmath>
 
-Player::Player()
+void Player::SetStageNumber(int num)
 {
+	stageNum = num;
 	playerCollision->SetRockRect(stageNum);
 }
 
@@ -111,8 +112,22 @@ void Player::MoveGraphSet()
 	// ŽÎ‚ßˆÚ“®‚Ìê‡‚Í‰¡Šç‚ð—Dæ
 	if (move == tiltMove)
 	{
-		if (moveCountX > 0) directionState = rightDir;
-		else directionState = leftDir;
+		if (tempMoveX < 0 && tempMoveY < 0)
+		{
+			directionState = upLeftDir;
+		}
+		if (tempMoveX < 0 && tempMoveY > 0)
+		{
+			directionState = downLeftDir;
+		}
+		if (tempMoveX > 0 && tempMoveY < 0)
+		{
+			directionState = upRightDir;
+		}
+		if (tempMoveX > 0 && tempMoveY > 0)
+		{
+			directionState = downRightDir;
+		}
 
 		moveIndex = tempMoveIndexX;
 	}
@@ -124,30 +139,62 @@ void Player::MoveGraphSet()
 		// ‰ºŒü‚«‚È‚Ì‚ÅA‚Qs–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ð‘«‚·
 		tempMoveIndexY += moveDivX;
 		moveIndex = tempMoveIndexY;
+
 		break;
 
 	case downDir: 
 		// ãŒü‚«‚È‚Ì‚ÅA‚Ps–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ðresult‚É“n‚·
 		moveIndex = tempMoveIndexY;
+
 		break;
 
 	case leftDir: 
 		// ¶Œü‚«‚È‚Ì‚ÅA‚Rs–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ð‘«‚·
 		tempMoveIndexX += moveDivX * leftDir;
 		moveIndex = tempMoveIndexX;
+
 		break;
 
 	case rightDir: 
 		// ‰EŒü‚«‚È‚Ì‚ÅA‚Ss–Ú‚Ìæ“ª“Y‚¦Žš”Ô†‚ð‘«‚·
 		tempMoveIndexX += moveDivX * rightDir;
 		moveIndex = tempMoveIndexX;
+
+		break;
+
+	case upLeftDir:
+		// ¶Œü‚«‚È‚Ì‚ÅA‚Rs–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ð‘«‚·
+		tempMoveIndexX += moveDivX * leftDir;
+		moveIndex = tempMoveIndexX;
+
+		break;
+
+	case upRightDir:
+		// ‰EŒü‚«‚È‚Ì‚ÅA‚Ss–Ú‚Ìæ“ª“Y‚¦Žš”Ô†‚ð‘«‚·
+		tempMoveIndexX += moveDivX * rightDir;
+		moveIndex = tempMoveIndexX;
+
+		break;
+
+	case downLeftDir:
+		// ¶Œü‚«‚È‚Ì‚ÅA‚Rs–Ú‚Ìæ“ª“Y‚¦Žš”z—ñ‚ð‘«‚·
+		tempMoveIndexX += moveDivX * leftDir;
+		moveIndex = tempMoveIndexX;
+
+		break;
+		
+	case downRightDir:
+		// ‰EŒü‚«‚È‚Ì‚ÅA‚Ss–Ú‚Ìæ“ª“Y‚¦Žš”Ô†‚ð‘«‚·
+		tempMoveIndexX += moveDivX * rightDir;
+		moveIndex = tempMoveIndexX;
+
 		break;
 	}
 
 	int t = directionState;
 
 	//DrawFormatString(100, 100, GetColor(255, 0, 0), "direction : %d  x:%d y:%d", t, moveCountX, moveCountY);
-
+	DrawFormatString(100, 100, GetColor(255, 0, 0), "direction : %i", collisionRect);
 	// ˆÚ“®‚µ‚Ä‚¢‚È‚¢ê‡‚Í’l‚ð‰Šú‰»
 	if (tempMoveY == 0) moveCountY = 0;
 	if (tempMoveX == 0) moveCountX = 0;
@@ -167,10 +214,14 @@ void Player::IdolGraphSet()
 	
 	switch (directionState)
 	{
-	case downDir:	stopIndex = tempStopIndex;						break;
-	case upDir:		stopIndex = tempStopIndex + stopDivX;			break;
-	case leftDir:	stopIndex = tempStopIndex + stopDivX * leftDir;	break;
-	case rightDir:	stopIndex = tempStopIndex + stopDivX * rightDir;break;
+	case downDir:		stopIndex = tempStopIndex;						break;
+	case upDir:			stopIndex = tempStopIndex + stopDivX;			break;
+	case leftDir:		stopIndex = tempStopIndex + stopDivX * leftDir;	break;
+	case rightDir:		stopIndex = tempStopIndex + stopDivX * rightDir;break;
+	case upLeftDir:		stopIndex = tempStopIndex + stopDivX * leftDir; break;
+	case upRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir; break;
+	case downLeftDir:	stopIndex = tempStopIndex + stopDivX * leftDir; break;
+	case downRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir; break;
 	}
 }
 
@@ -181,15 +232,10 @@ void Player::IdolGraphSet()
 /////////////////////////////////////////////////////
 void Player::Collision()
 {
-	Rect collisionRect;
-
-	if (playerCollision->OnCollision(collisionRect))
+	if (playerCollision->OnCollision(rect))
 	{
-		int vectX = x - memoryX;
-		int vectY = y - memoryY;
-
-		if (vectX < 0 || vectX > 0) x++;
-		if (vectY < 0 || vectY > 0) y++;
+		x = memoryX;
+		y = memoryY;
 
 		return;
 	}
@@ -224,8 +270,10 @@ void Player::SetPosition()
 {
 	double top	  =  y + 32;
 	double bottom =  y + graphSize;
-	double left   =  x + 16;
-	double right  =  x + graphSize - 16;
+	double left   =  x + 20;
+	double right  =  x + graphSize - 20;
+
+	//DrawBox(left, top, right, bottom, GetColor(255, 0, 0), TRUE);
 
 	SetValue(&top, &bottom, &left, &right);
 }

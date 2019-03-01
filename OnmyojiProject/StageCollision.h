@@ -6,20 +6,26 @@
 
 using namespace std;
 
+/*
+///////////////////////////////////////////
+StageCollisionクラス
+
+概要　：ステージに設置されている動かない壁の当たり判定の管理
+///////////////////////////////////////////
+*/
 class StageCollision
 {
 	vector<position> collisionPos;
 
 	vector<Rect> collisionRange;
 
-	int graphSize = 64;
+    const int graphSize = 64;
 
-	int count = 0;
-
-
+	// 当たり判定の範囲を設定
 	void CollisionRangeSet();
 public:
 
+	// 当たり判定
 	bool OnCollision(Rect playerRect,Rect& collisionRect);
 
 	// 選択されたステージの当たり判定情報を取得

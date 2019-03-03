@@ -77,7 +77,7 @@ private:
 	bool isMove = false;
 
 	// 移動スピード
-	double speed = 5.0;
+	double speed = 4.0;
 
 	// 移動係数
 	double move = 1.0;
@@ -86,7 +86,7 @@ private:
 	double straightMove = 1.0;
 
 	// 斜めに進んでいるときの移動係数の値
-	double tiltMove = 0.71;
+	double tiltMove = 0.8;
 
 	// 現在の方向
 	Direction directionState = downDir;

@@ -1,5 +1,6 @@
 #include "PlayerCollision.h"
 #include "SettingProvider.h"
+#include "Collision.h"
 
 /////////////////////////////////////////////////////
 //引数			:プレイヤーと当たったオブジェクトの範囲を受け取りたいRect
@@ -10,6 +11,15 @@ bool PlayerCollision::OnCollision(Rect& collisionRect)
 {
 	if (stageCollision->OnCollision(playerRect,collisionRect)) return true;
 	else return false;
+}
+
+bool PlayerCollision::AnyCollision(Rect playerRect, Rect& targetRect)
+{
+	if (Collision::Instance()->CheckRectAndRect(playerRect, targetRect))
+	{
+		targetRect = playerRect;
+		return true;
+	}
 }
 
 /////////////////////////////////////////////////////
@@ -31,3 +41,4 @@ void PlayerCollision::SetRockRect(int stageNum)
 {
 	stageCollision->SetCollsionPosition(StageInpoter::Instance()->GetCollisionData()[SettingProvider::Instance()->GetStageNumber()]);
 }
+

@@ -4,7 +4,7 @@
 Control::Control()
 {
 	ImageLoader::Instance()->ImageDiv();
-	gameScene->SetStageNum(1);
+	gameScene->SetStageNum(0);
 }
 
 void Control::SceneChange(SceneState scene)

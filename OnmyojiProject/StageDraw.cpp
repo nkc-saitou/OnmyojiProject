@@ -15,7 +15,7 @@ void StageDraw::StillDraw()
 	{
 		for (int j = 0; j < stageWidth; j++)
 		{
-			DrawRotaGraph(32 + 64 * j, 32 + 64 * i, 0.5, 0.0, ImageLoader::Instance()->GetGameStageGH()[stageData[i][j]], TRUE);
+			DrawExtendGraph(64 * j, 64 * i, (64 * j) + 64, (64 * i) + 64, ImageLoader::Instance()->GetGameStageGH()[stageData[i][j]], TRUE);
 		}
 	}
 }

@@ -1,10 +1,14 @@
 #pragma once
 
-class Rock
+#include "RectShape.h"
+
+class Rock : RectShape
 {
 	const int graphSize = 64;
 
 	double x = 0, y = 0;
+
+	bool isOnCollison = false;
 
 
 	void Move();
@@ -13,9 +17,13 @@ class Rock
 
 	void Collision();
 
+	void RectSet();
+
 public:
 	// スタート時のポジションをセット
 	void SetStartPos(double posX, double posY);
 
 	void Update();
+
+	bool SetIsOnCollision(bool isCollison) { isOnCollison = isCollison; }
 };

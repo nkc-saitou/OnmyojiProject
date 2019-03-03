@@ -23,6 +23,8 @@ public:
 	// ‰½‚©‚É‚ ‚½‚Á‚½‚©‚Ç‚¤‚©
 	bool OnCollision(Rect& collisionRect);
 
+	bool AnyCollision(Rect playerRect, Rect& targetRect);
+
 	// Šâ‚Ì“–‚½‚è”»’è‚ðƒZƒbƒg
 	void SetRockRect(int stageNum);
 

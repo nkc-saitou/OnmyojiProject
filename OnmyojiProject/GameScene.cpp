@@ -24,13 +24,7 @@ void GameScene::SetStageNum(int num)
 	player->SetStartPos(pos.x, pos.y);
 
 
-	vector<position> rockPos = StageInpoter::Instance()->GetRockPosData()[num];
-
-	for (int i = 0; i < rockPos.size(); i++)
-	{
-		rock.emplace_back(make_unique<Rock>());
-		rock[i]->SetStartPos(rockPos[i].x, rockPos[i].y);
-	}
+	rockController->Init(num);
 
 	// テスト描画用。
 	testVec = StageInpoter::Instance()->GetCollisionData()[num];
@@ -67,8 +61,7 @@ void GameScene::Update()
 {
 	stageDraw->Update();
 
-	for (int i = 0; i < rock.size(); i++) rock[i]->Update();
-	
+	rockController->Update();
 
 	//Draw();
 	player->Updata();

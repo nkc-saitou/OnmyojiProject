@@ -6,7 +6,7 @@
 #include "StageInpoter.h"
 #include "StageDraw.h"
 #include "StageCollision.h"
-#include "Rock.h"
+#include "RockController.h"
 
 
 
@@ -28,8 +28,7 @@ class GameScene
 	std::unique_ptr<StageDraw> stageDraw = std::make_unique<StageDraw>();
 	std::unique_ptr<Player> player = std::make_unique<Player>();
 	std::unique_ptr<StageCollision> stageCollision = std::make_unique<StageCollision>();
-
-	vector<unique_ptr<Rock>> rock;
+	std::unique_ptr<RockController> rockController = std::make_unique<RockController>();
 
 	vector<position> testVec;
 

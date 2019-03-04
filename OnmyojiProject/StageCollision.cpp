@@ -1,5 +1,6 @@
 #include "StageCollision.h"
 #include "Collision.h"
+#include "RectWatcher.h"
 
 #include "DxLib.h"
 
@@ -23,6 +24,7 @@ void StageCollision::CollisionRangeSet()
 
 		collisionRange.push_back(tempRect);
 	}
+	RectWatcher::Instance()->SetStageRect(collisionRange);
 }
 
 /////////////////////////////////////////////////////

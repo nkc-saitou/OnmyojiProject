@@ -67,8 +67,8 @@ private:
 	int stageNum = 0;
 
 	// 移動座標記憶
-	int memoryX = x;
-	int memoryY = y;
+	double memoryX = x;
+	double memoryY = y;
 
 	// 座標
 	double x, y;
@@ -104,7 +104,7 @@ private:
 	// 待機状態のイメージ変更処理
 	void IdolGraphSet();
 	// 当たり判定
-	void Collision();
+	void Collision(Rect playerRect);
 	// 表示処理
 	void Draw(); 
 	// 当たり判定の座標を登録
@@ -112,7 +112,7 @@ private:
 
 public:
 
-	void SetStageNumber(int num);
+	void SetStageNumber();
 
 	// スタート時のポジションをセット
 	void SetStartPos(double posX,double posY);

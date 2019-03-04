@@ -2,7 +2,7 @@
 
 #include "RectShape.h"
 
-class Rock : RectShape
+class Rock : public RectShape
 {
 	const int graphSize = 64;
 

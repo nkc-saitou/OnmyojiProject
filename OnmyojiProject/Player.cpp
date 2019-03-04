@@ -4,13 +4,13 @@
 #include "SettingProvider.h"
 #include "StageInpoter.h"
 #include "Collision.h"
+#include "RectWatcher.h"
 
 #include <cmath>
 
-void Player::SetStageNumber(int num)
+void Player::SetStageNumber()
 {
-	stageNum = num;
-	playerCollision->SetRockRect(stageNum);
+	stageNum = SettingProvider::Instance()->GetStageNumber();
 }
 
 /////////////////////////////////////////////////////
@@ -230,9 +230,11 @@ void Player::IdolGraphSet()
 //–ß‚è’l		:‚È‚µ
 //“®ì			:“–‚½‚è”»’è—p‚Ìˆ—
 /////////////////////////////////////////////////////
-void Player::Collision()
+void Player::Collision(Rect playerRect)
 {
-	if (playerCollision->OnCollision(rect))
+
+
+	if (playerCollision->OnCollision(playerRect))
 	{
 		x = memoryX;
 		y = memoryY;
@@ -307,7 +309,10 @@ void Player::Updata()
 	Draw();
 
 	SetPosition();
-	playerCollision->SetPlayerRect(rect);
 
-	Collision();
+	Rect rect = GetRect();
+
+	//playerCollision->SetPlayerRect(rect);
+	RectWatcher::Instance()->SetPlayerRect(rect);
+	Collision(rect);
 }

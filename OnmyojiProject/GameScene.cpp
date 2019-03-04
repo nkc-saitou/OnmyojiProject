@@ -14,7 +14,7 @@ void GameScene::SetStageNum(int num)
 
 	SettingProvider::Instance()->SetStageNumber(num);
 
-	player->SetStageNumber(num);
+	player->SetStageNumber();
 
 	// StageDrawにステージデータを渡す
 	stageDraw->SetStageData(StageInpoter::Instance()->GetStageData()[num]);

@@ -1,10 +1,12 @@
 #pragma once
 
-#include "StageCollision.h"
 #include "StageInpoter.h"
+#include "ObjectCollision.h"
 
 using namespace std;
 
+// 相互参照のため前方宣言
+class RockCollision;
 /*
 ///////////////////////////////////////////
 PlayerCollisionクラス
@@ -14,21 +16,14 @@ PlayerCollisionクラス
 */
 class PlayerCollision
 {
-	unique_ptr<StageCollision> stageCollision = make_unique<StageCollision>();
+	unique_ptr<ObjectCollision> objectCollision = make_unique<ObjectCollision>();
 
-	Rect playerRect;
+
 
 public:
 
+
 	// 何かにあたったかどうか
 	bool OnCollision(Rect& collisionRect);
-
-	bool AnyCollision(Rect playerRect, Rect& targetRect);
-
-	// 岩の当たり判定をセット
-	void SetRockRect(int stageNum);
-
-	// プレイヤーの当たり判定をセット
-	void SetPlayerRect(Rect targetRect);
 
 };

@@ -1,16 +1,13 @@
 #include "RockCollision.h"
+#include "SettingProvider.h"
 
 
 void RockCollision::SetCollisonRect(Rect rect)
 {
-	targetRect = rect;
+	rockRect = rect;
 }
 
-bool RockCollision::OnCollision(Rect& collisionRect)
+bool RockCollision::OnCollision()
 {
-	if (stageCollision->OnCollision(targetRect, collisionRect)) return true;
-
-	if (playerCollision->AnyCollision(targetRect, collisionRect)) return true;
-
 
 }

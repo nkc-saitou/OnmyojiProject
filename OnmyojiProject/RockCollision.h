@@ -1,18 +1,24 @@
 #pragma once
+
+#include "Rock.h"
 #include "RectShape.h"
-#include "StageCollision.h"
-#include "PlayerCollision.h"
+#include "ObjectCollision.h"
+#include "Player.h"
+
+#include <vector>
+#include <memory>
+
 
 class RockCollision
 {
-	unique_ptr<StageCollision> stageCollision = make_unique<StageCollision>();
-	unique_ptr<PlayerCollision> playerCollision = make_unique<PlayerCollision>();
+	Rect rockRect;
 
-	Rect targetRect;
+	std::vector<std::unique_ptr<Rock>> rock;
+	std::unique_ptr<ObjectCollision> objectCollision = std::make_unique<ObjectCollision>();
 
 public:
 
-	bool OnCollision(Rect& collisionRect);
+	bool OnCollision();
 
 	void SetCollisonRect(Rect rect);
 };

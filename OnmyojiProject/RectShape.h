@@ -27,9 +27,11 @@ RectShapeクラス
 */
 class RectShape
 {
-public:
+
 	Rect rect;
 
+
+protected:
 	// 構造体の値を更新
 	void SetValue(double *top, double *bottom, double *left, double *right)
 	{
@@ -39,10 +41,13 @@ public:
 		this->rect.right = *right;
 	}
 
+public:
 	// ゲッター
-	double GetTop()	   const { return rect.top; }
-	double GetBottom() const { return rect.bottom; }
-	double GetLeft()   const { return rect.left; }
-	double GetRight()  const { return rect.right; }
+	double GetTop() { return rect.top; }
+	double GetBottom() { return rect.bottom; }
+	double GetLeft() { return rect.left; }
+	double GetRight() { return rect.right; }
+
+	Rect GetRect() { return rect; }
 
 };

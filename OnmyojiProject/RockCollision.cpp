@@ -5,6 +5,11 @@
 
 namespace RockScope 
 {
+	/////////////////////////////////////////////////////
+	//引数			:ファイル名を格納するstring配列
+	//戻り値		:なし
+	//動作			:ステージデータの数とファイル名の取得
+	/////////////////////////////////////////////////////
 	bool RockCollision::OnCollision(Rect myRockRect, int x, int y, Rect& collisionRect, CollisionObjType& type)
 	{
 		Rect playerRect = CollisionRectProvider::Instance()->GetPlayerRect();

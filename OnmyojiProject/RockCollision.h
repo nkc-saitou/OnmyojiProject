@@ -10,6 +10,13 @@
 
 namespace RockScope {
 
+	/*
+	///////////////////////////////////////////
+	SceneStage列挙体
+
+	概要　：シーンの状態を判別する
+	///////////////////////////////////////////
+	*/
 	class RockCollision
 	{
 		const int graphSize = 64;

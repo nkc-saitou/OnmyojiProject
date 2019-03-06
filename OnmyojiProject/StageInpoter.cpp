@@ -7,6 +7,11 @@
 
 using namespace std;
 
+/////////////////////////////////////////////////////
+//引数			:なし
+//戻り値		:なし
+//動作			:データ読み込み
+/////////////////////////////////////////////////////
 StageInpoter::StageInpoter()
 {
 	// csvファイルの名前を取得
@@ -38,6 +43,11 @@ StageInpoter::StageInpoter()
 	}
 }
 
+/////////////////////////////////////////////////////
+//引数			:データチップ情報の配列
+//戻り値		:チップの座標
+//動作			:当たり判定用の動かない壁の座標を取得
+/////////////////////////////////////////////////////
 vector<position> StageInpoter::StageCollisionSet(vector<vector<int>> tempData)
 {
 	vector<position> stillChipData;
@@ -60,6 +70,11 @@ vector<position> StageInpoter::StageCollisionSet(vector<vector<int>> tempData)
 	return stillChipData;
 }
 
+/////////////////////////////////////////////////////
+//引数			:配列の添え字ｘ、ｙ、チップデータ情報
+//戻り値		:当たり判定を調べる壁(ステージの端ではない かつ 内側に埋まっている壁ではない)だったらtrue
+//動作			:当たり判定を調べる壁とそうでない壁を選別する
+/////////////////////////////////////////////////////
 bool StageInpoter::IsEdgeCollision(int x, int y, vector<vector<int>> tempData)
 {
 	// 動かない壁以外の当たり判定はここでは考えない
@@ -77,6 +92,11 @@ bool StageInpoter::IsEdgeCollision(int x, int y, vector<vector<int>> tempData)
 	return true;
 }
 
+/////////////////////////////////////////////////////
+//引数			:配列の添え字番号x,y
+//戻り値		:ステージ端であったらtrue
+//動作			:現在の位置がステージ端に位置するかどうか
+/////////////////////////////////////////////////////
 bool StageInpoter::IsStageEdge(int x, int y)
 {
 	if (y == 0 || y >= stageY - 1 || x == 0 || x >= stageX - 1) return true;

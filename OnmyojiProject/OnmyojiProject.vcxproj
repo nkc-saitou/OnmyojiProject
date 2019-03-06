@@ -125,13 +125,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionRectProvider.cpp" />
     <ClCompile Include="FpsFix.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="ObjectCollision.cpp" />
     <ClCompile Include="PlayerCollision.cpp" />
-    <ClCompile Include="RectWatcher.cpp" />
+    <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="RockCollision.cpp" />
     <ClCompile Include="RockController.cpp" />
@@ -146,13 +147,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircleShape.h" />
+    <ClInclude Include="E_CollisionObj.h" />
     <ClInclude Include="FpsFix.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="ObjectCollision.h" />
     <ClInclude Include="PlayerCollision.h" />
-    <ClInclude Include="RectWatcher.h" />
+    <ClInclude Include="CollisionRectProvider.h" />
+    <ClInclude Include="E_PlayerDirection.h" />
+    <ClInclude Include="PlayerInput.h" />
+    <ClInclude Include="PlayerProvider.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="RockCollision.h" />
     <ClInclude Include="RockController.h" />

@@ -4,22 +4,29 @@
 #include <memory>
 
 #include "Rock.h"
+#include "PlayerInput.h"
 
-class RockController
+namespace RockScope
 {
-	std::vector<std::unique_ptr<Rock>> rock;
+	class RockController
+	{
+		std::vector<std::unique_ptr<Rock>> rock;
 
-	int stageNum = 0;
+		std::unique_ptr<PlayerScope::PlayerInput> playerInput = std::make_unique<PlayerScope::PlayerInput>();
 
+		int stageNum = 0;
 
-	void Draw();
+		bool isMove = false;
 
-public:
-	void Init(int num);
+		PlayerScope::Direction dir;
 
-	void RockCollisonSet();
+	public:
 
-	void Update();
+		void RockStartPosSet(int stageNum);
 
+		void RockCollisonSet();
 
-};
+		void Update();
+
+	};
+}

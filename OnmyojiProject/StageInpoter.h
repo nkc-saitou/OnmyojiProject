@@ -4,8 +4,6 @@
 #include <string>
 #include "Singleton.h"
 
-using namespace std;
-
 /*
 ///////////////////////////////////////////
 position構造体
@@ -55,7 +53,7 @@ class StageInpoter :public Singleton <StageInpoter>
 	//===============================
 
 	// csvステージデータのパス
-	const string dataPath = "../OnmyojiProject/StageData/";
+	const std::string dataPath = "../OnmyojiProject/StageData/";
 
 	// ステージデータの大きさ
 	const int stageX = 30;
@@ -65,22 +63,22 @@ class StageInpoter :public Singleton <StageInpoter>
 
 
 	// 読み込みデータの名前
-	vector<string> fileNameVec;
+	std::vector<std::string> fileNameVec;
 	
 	// ステージの情報
-	vector<vector<vector<int>>> stageData;
+	std::vector<std::vector<std::vector<int>>> stageData;
 
-	vector<vector<position>> stageCollisionPos;
+	std::vector<std::vector<position>> stageCollisionPos;
 
 	// プレイヤーの初期位置
-	vector<position> playerPosData;
+	std::vector<position> playerPosData;
 
 	// 岩の初期位置
-	vector<vector<position>> rockPosData;
+	std::vector<std::vector<position>> rockPosData;
 
 	// 敵の位置
-	vector<vector<position>> enemyOnePosData;
-	vector<vector<position>> enemyTwoPosData;
+	std::vector<std::vector<position>> enemyOnePosData;
+	std::vector<std::vector<position>> enemyTwoPosData;
 
 
 
@@ -89,17 +87,17 @@ class StageInpoter :public Singleton <StageInpoter>
 	//===============================
 
 	//データを配列に格納
-	bool IsSplit(const string& fileName, vector<vector<int>>& stageData, const char delim = ',');
+	bool IsSplit(const std::string& fileName, std::vector<std::vector<int>>& stageData, const char delim = ',');
 
-	void GetFileData(vector<string>& file);
+	void GetFileData(std::vector<std::string>& file);
 
 	// 動くデータとの仕分け
-	void AssortmentStageData(int num,vector<vector<int>>& stageData);
+	void AssortmentStageData(int num, std::vector<std::vector<int>>& stageData);
 
-	vector<position> StageCollisionSet(vector<vector<int>> tempData);
+	std::vector<position> StageCollisionSet(std::vector<std::vector<int>> tempData);
 
 	// 当たり判定を付ける壁(プレイヤーと接触の可能性がある外側の壁)かどうか
-	bool IsEdgeCollision(int x, int y , vector<vector<int>> tempData);
+	bool IsEdgeCollision(int x, int y , std::vector<std::vector<int>> tempData);
 
 	bool IsStageEdge(int x, int y);
 
@@ -113,20 +111,20 @@ public:
 	//===============================
 
 	// ステージデータ
-	vector<vector<vector<int>>> GetStageData(){ return stageData; }
+	std::vector<std::vector<std::vector<int>>> GetStageData(){ return stageData; }
 
 	// 当たり判定用データ
-	vector<vector<position>> GetCollisionData() { return stageCollisionPos; }
+	std::vector<std::vector<position>> GetStageCollisionData() { return stageCollisionPos; }
 
 	// プレイヤーの初期ポジション
-	vector<position> GetPlayerPosData() { return playerPosData; }
+	std::vector<position> GetPlayerPosData() { return playerPosData; }
 
 	// 岩の初期ポジション
-	vector<vector<position>> GetRockPosData() { return rockPosData; }
+	std::vector<std::vector<position>> GetRockPosData() { return rockPosData; }
 
 	// 敵の初期ポジション
-	vector<vector<position>> GetEnemyOnePosData() { return enemyOnePosData; }
-	vector<vector<position>> GetEnemyTwoPosData() { return enemyTwoPosData; }
+	std::vector<std::vector<position>> GetEnemyOnePosData() { return enemyOnePosData; }
+	std::vector<std::vector<position>> GetEnemyTwoPosData() { return enemyTwoPosData; }
 
 	// ステージの数
 	int GetStageCount() { return fileNameVec.size(); }

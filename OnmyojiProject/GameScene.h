@@ -8,8 +8,6 @@
 #include "StageCollision.h"
 #include "RockController.h"
 
-
-
 /*
 ///////////////////////////////////////////
 GameSceneクラス
@@ -26,11 +24,11 @@ class GameScene
 	const int MaxStageNum = StageInpoter::Instance()->GetStageCount();
 
 	std::unique_ptr<StageDraw> stageDraw = std::make_unique<StageDraw>();
-	std::unique_ptr<Player> player = std::make_unique<Player>();
+	std::unique_ptr<PlayerScope::Player> player = std::make_unique<PlayerScope::Player>();
 	std::unique_ptr<StageCollision> stageCollision = std::make_unique<StageCollision>();
-	std::unique_ptr<RockController> rockController = std::make_unique<RockController>();
+	std::unique_ptr<RockScope::RockController> rockController = std::make_unique<RockScope::RockController>();
 
-	vector<position> testVec;
+	vector<Rect> testVec;
 
 	// GameSceneで再生するステージの番号
 	int stageNum;
@@ -44,7 +42,7 @@ class GameScene
 
 public:
 
-	void SetStageNum(int num);
+	void SetStage(int num);
 
 	void Update();
 };

@@ -11,7 +11,6 @@ SettingProviderƒNƒ‰ƒX
 */
 class SettingProvider : public Singleton <SettingProvider>
 {
-
 	int stageNumber;
 
 public:

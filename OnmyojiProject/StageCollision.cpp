@@ -1,6 +1,7 @@
 #include "StageCollision.h"
 #include "Collision.h"
-#include "RectWatcher.h"
+#include "CollisionRectProvider.h"
+#include "SettingProvider.h"
 
 #include "DxLib.h"
 
@@ -24,27 +25,7 @@ void StageCollision::CollisionRangeSet()
 
 		collisionRange.push_back(tempRect);
 	}
-	RectWatcher::Instance()->SetStageRect(collisionRange);
-}
-
-/////////////////////////////////////////////////////
-//引数			:当たり判定を調べたいオブジェクトのRect , あたったオブジェクトのRect
-//戻り値		:当たっていたらtrue
-//動作			:引数で与えたオブジェクトと、動かない壁が当たっているかどうかを調べる。
-//               当たっていた場合は、当たった壁のRectを渡す
-/////////////////////////////////////////////////////
-bool StageCollision::OnCollision(Rect playerRect, Rect& collisionRect)
-{
-	for (int i = 0; i < collisionRange.size(); i++)
-	{
-		if (Collision::Instance()->CheckRectAndRect(playerRect, collisionRange[i]))
-		{
-			collisionRect = collisionRange[i];
-			return true;
-		}
-	}
-
-	return false;
+	CollisionRectProvider::Instance()->SetStageRect(collisionRange);
 }
 
 /////////////////////////////////////////////////////
@@ -52,8 +33,11 @@ bool StageCollision::OnCollision(Rect playerRect, Rect& collisionRect)
 //戻り値		:なし
 //動作			:選択されたステージの当たり判定をセットする
 /////////////////////////////////////////////////////
-void StageCollision::SetCollsionPosition(vector<position> pos)
+void StageCollision::SetCollsionPosition()
 {
-	collisionPos = pos;
+	int stageNum = SettingProvider::Instance()->GetStageNumber();
+	vector<position> poss = StageInpoter::Instance()->GetStageCollisionData()[stageNum];
+
+	collisionPos = poss;
 	CollisionRangeSet();
 }

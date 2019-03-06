@@ -1,21 +1,45 @@
 #include "PlayerCollision.h"
-#include "RectWatcher.h"
+#include "CollisionRectProvider.h"
 #include <vector>
 
-
-/////////////////////////////////////////////////////
-//引数			:プレイヤーと当たったオブジェクトの範囲を受け取りたいRect
-//戻り値		:プレイヤーが当たっていたらtrue
-//動作			:プレイヤーと当たっているかどうかを調べる
-/////////////////////////////////////////////////////
-bool PlayerCollision::OnCollision(Rect& collisionRect)
+namespace PlayerScope
 {
-	Rect playerRect = RectWatcher::Instance()->GetPlayerRect();
-	vector<Rect> rockRect = RectWatcher::Instance()->GetRockRect();
-	vector<Rect> stageRect = RectWatcher::Instance()->GetStageRect();
+	/////////////////////////////////////////////////////
+	//引数			:プレイヤーと当たったオブジェクトの範囲を受け取りたいRect
+	//戻り値		:プレイヤーが当たっていたらtrue
+	//動作			:プレイヤーと当たっているかどうかを調べる
+	/////////////////////////////////////////////////////
+	bool PlayerCollision::OnCollision(int x, int y)
+	{
+		Rect playerRect = CollisionRectProvider::Instance()->GetPlayerRect();
+		std::vector<Rect> rockRect = CollisionRectProvider::Instance()->GetRockRect();
+		std::vector<Rect> stageRect = CollisionRectProvider::Instance()->GetStageRect();
 
-	// for分で飛ばす
-	if (objectCollision->OnCollision(playerRect,collisionRect)) return true;
-	else return false;
+		// サイズを取得
+		int rockRectCount = rockRect.size();
+		int stageRectCount = stageRect.size();
+
+		//// 石と当たっているかどうか
+		//for (int i = 0; i < rockRectCount; i++)
+		//{
+		//	if (objectCollision->OnCollision(playerRect, rockRect[i])) return true;
+		//}
+
+		// ステージ上の壁と当たっているかどうか
+		for (int i = 0; i < stageRectCount; i++)
+		{
+			if (objectCollision->OnCollision(playerRect, stageRect[i])) return true;
+		}
+
+		// ｘ方向、画面外に出ないように
+		if (x + graphSize * 2 > screenSizeX) return true;
+		if (x < graphSize) return true;
+
+		// ｙ方向、画面外に出ないように
+		if (y + graphSize * 2 > screenSizeY) return true;
+		if (y < graphSize) return true;
+
+		return false;
+	}
 }
 

@@ -2,28 +2,28 @@
 
 #include "StageInpoter.h"
 #include "ObjectCollision.h"
+#include "SettingProvider.h"
 
-using namespace std;
-
-// 相互参照のため前方宣言
-class RockCollision;
-/*
-///////////////////////////////////////////
-PlayerCollisionクラス
-
-概要　：プレイヤーの当たり判定の管理
-///////////////////////////////////////////
-*/
-class PlayerCollision
+namespace PlayerScope
 {
-	unique_ptr<ObjectCollision> objectCollision = make_unique<ObjectCollision>();
+	/*
+	///////////////////////////////////////////
+	PlayerCollisionクラス
 
+	概要　：プレイヤーの当たり判定の管理
+	///////////////////////////////////////////
+	*/
+	class PlayerCollision
+	{
+		std::unique_ptr<ObjectCollision> objectCollision = std::make_unique<ObjectCollision>();
 
+		const int graphSize = 64;
+		const int screenSizeX = SettingProvider::Instance()->screenSizeX;
+		const int screenSizeY = SettingProvider::Instance()->screenSizeY;
 
-public:
+	public:
 
-
-	// 何かにあたったかどうか
-	bool OnCollision(Rect& collisionRect);
-
-};
+		// 何かにあたったかどうか
+		bool OnCollision(int x, int y);
+	};
+}

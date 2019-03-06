@@ -1,33 +1,36 @@
 #include "GameScene.h"
 #include "SettingProvider.h"
+#include "CollisionRectProvider.h"
 #include "DxLib.h"
 
 /////////////////////////////////////////////////////
-//引数			:ステージ数
+//引数			:ステージ番号
 //戻り値		:なし
 //動作			:ステージデータをstageDrawに送る
 /////////////////////////////////////////////////////
-void GameScene::SetStageNum(int num)
+void GameScene::SetStage(int num)
 {
 	// ステージの総数より大きな数字が与えられないように設定
 	if (MaxStageNum > num) stageNum = num;
 
-	SettingProvider::Instance()->SetStageNumber(num);
-
-	player->SetStageNumber();
+	// ステージ番号を記録させておく
+	SettingProvider::Instance()->SetStageNumber(stageNum);
 
 	// StageDrawにステージデータを渡す
-	stageDraw->SetStageData(StageInpoter::Instance()->GetStageData()[num]);
+	stageDraw->SetStageData(StageInpoter::Instance()->GetStageData()[stageNum]);
+
+	// ステージの当たり判定を設定する
+	stageCollision->SetCollsionPosition();
 
 	// プレイヤーの初期位置を取得
-	position pos = StageInpoter::Instance()->GetPlayerPosData()[num];
+	position pos = StageInpoter::Instance()->GetPlayerPosData()[stageNum];
 	player->SetStartPos(pos.x, pos.y);
 
+	// rockControllerの初期位置をセットする
+	rockController->RockStartPosSet(stageNum);
 
-	rockController->Init(num);
-
-	// テスト描画用。
-	testVec = StageInpoter::Instance()->GetCollisionData()[num];
+	// テスト描画用
+	testVec = CollisionRectProvider::Instance()->GetStageRect();
 }
 
 /////////////////////////////////////////////////////
@@ -37,19 +40,22 @@ void GameScene::SetStageNum(int num)
 /////////////////////////////////////////////////////
 void GameScene::Draw()
 {
-	//for (int i = 0; i < testVec.size(); i++)
-	//{
-		//int x = testVec[i].x;
-		//int y = testVec[i].y;
-		////DrawCircle(32 + x * 64,32 + y * 64, 5, GetColor(255, 0, 0), TRUE);
+	for (int i = 0; i < testVec.size(); i++)
+	{
+		//DrawCircle(32 + x * 64,32 + y * 64, 5, GetColor(255, 0, 0), TRUE);
 
-		//int top = y * 64;
-		//int left = x * 64;
-		//int bottom = top + 64;
-		//int right = left + 64;
+		DrawBox(testVec[i].left, testVec[i].top, testVec[i].right, testVec[i].bottom, GetColor(255, 0, 0), TRUE);
+	}
 
-		//DrawBox(left, top, right, bottom, GetColor(255, 0, 0), TRUE);
-	//}
+	Rect top = CollisionRectProvider::Instance()->GetTopEdgeStageRect();
+	Rect bottom = CollisionRectProvider::Instance()->GetBottomEdgeStageRect();
+	Rect left = CollisionRectProvider::Instance()->GetLeftEdgeStageRect();
+	Rect right = CollisionRectProvider::Instance()->GetRightEdgeStageRect();
+
+	DrawBox(top.left, top.top, top.right, top.bottom, GetColor(255, 0, 0), TRUE);
+	DrawBox(bottom.left, bottom.top, bottom.right, bottom.bottom, GetColor(255, 0, 0), TRUE);
+	DrawBox(left.left, left.top, left.right, left.bottom, GetColor(255, 0, 0), TRUE);
+	DrawBox(right.left, right.top, right.right, right.bottom, GetColor(255, 0, 0), TRUE);
 }
 
 /////////////////////////////////////////////////////
@@ -61,9 +67,10 @@ void GameScene::Update()
 {
 	stageDraw->Update();
 
+	player->Updata();
+
 	rockController->Update();
 
 	//Draw();
-	player->Updata();
 
 }

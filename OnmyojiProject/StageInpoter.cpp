@@ -5,6 +5,8 @@
 #include <windows.h>
 #include "DxLib.h"
 
+using namespace std;
+
 StageInpoter::StageInpoter()
 {
 	// csvファイルの名前を取得

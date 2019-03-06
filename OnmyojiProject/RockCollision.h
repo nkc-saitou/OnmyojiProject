@@ -1,24 +1,25 @@
 #pragma once
 
-#include "Rock.h"
-#include "RectShape.h"
+#include "StageInpoter.h"
 #include "ObjectCollision.h"
-#include "Player.h"
+#include "SettingProvider.h"
+#include "E_CollisionObj.h"
 
 #include <vector>
 #include <memory>
 
+namespace RockScope {
 
-class RockCollision
-{
-	Rect rockRect;
+	class RockCollision
+	{
+		const int graphSize = 64;
+		const int screenSizeX = SettingProvider::Instance()->screenSizeX;
+		const int screenSizeY = SettingProvider::Instance()->screenSizeY;
 
-	std::vector<std::unique_ptr<Rock>> rock;
-	std::unique_ptr<ObjectCollision> objectCollision = std::make_unique<ObjectCollision>();
+		std::unique_ptr<ObjectCollision> objectCollision = std::make_unique<ObjectCollision>();
 
-public:
+	public:
 
-	bool OnCollision();
-
-	void SetCollisonRect(Rect rect);
-};
+		bool OnCollision(Rect myRockRect,int x,int y,Rect& collisionRect, CollisionObjType& type);
+	};
+}

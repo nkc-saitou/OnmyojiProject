@@ -25,9 +25,6 @@ class StageCollision
 	void CollisionRangeSet();
 public:
 
-	// 当たり判定
-	bool OnCollision(Rect playerRect,Rect& collisionRect);
-
 	// 選択されたステージの当たり判定情報を取得
-	void SetCollsionPosition(vector<position> pos);
+	void SetCollsionPosition();
 };

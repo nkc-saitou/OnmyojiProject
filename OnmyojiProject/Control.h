@@ -25,8 +25,6 @@ enum SceneState
 	toolScene,
 };
 
-using namespace std;
-
 /*
 ///////////////////////////////////////////
 GameControlƒNƒ‰ƒX

@@ -42,8 +42,6 @@ void GameScene::Draw()
 {
 	for (int i = 0; i < testVec.size(); i++)
 	{
-		//DrawCircle(32 + x * 64,32 + y * 64, 5, GetColor(255, 0, 0), TRUE);
-
 		DrawBox(testVec[i].left, testVec[i].top, testVec[i].right, testVec[i].bottom, GetColor(255, 0, 0), TRUE);
 	}
 

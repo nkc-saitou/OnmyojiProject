@@ -103,22 +103,22 @@ namespace PlayerScope
 		tempMoveIndexY = abs(moveCountY) % 40 / 10;
 
 
-		// 斜め移動の場合は横顔を優先
+		// 斜めに移動しているかどうかを調べ、移動方向を設定する
 		if (move == tiltMove)
 		{
 			if (tempMoveX < 0 && tempMoveY < 0)
 			{
 				directionState = upLeftDir;
 			}
-			if (tempMoveX < 0 && tempMoveY > 0)
+			else if (tempMoveX < 0 && tempMoveY > 0)
 			{
 				directionState = downLeftDir;
 			}
-			if (tempMoveX > 0 && tempMoveY < 0)
+			else if (tempMoveX > 0 && tempMoveY < 0)
 			{
 				directionState = upRightDir;
 			}
-			if (tempMoveX > 0 && tempMoveY > 0)
+			else if (tempMoveX > 0 && tempMoveY > 0)
 			{
 				directionState = downRightDir;
 			}
@@ -129,15 +129,18 @@ namespace PlayerScope
 
 		switch (directionState)
 		{
+
+			//========== 正面方向 ==========
+
 		case upDir:
-			// 下向きなので、２行目の先頭添え字配列を足す
+			// 上向き(後ろ姿)なので、２行目の先頭添え字配列を足す
 			tempMoveIndexY += moveDivX;
 			moveIndex = tempMoveIndexY;
 
 			break;
 
 		case downDir:
-			// 上向きなので、１行目の先頭添え字配列をresultに渡す
+			// 下向き(正面姿)なので、１行目の先頭添え字配列をresultに渡す
 			moveIndex = tempMoveIndexY;
 
 			break;
@@ -156,36 +159,33 @@ namespace PlayerScope
 
 			break;
 
+			//========== 斜め方向 ==========
+
 		case upLeftDir:
-			// 左向きなので、３行目の先頭添え字配列を足す
 			tempMoveIndexX += moveDivX * leftDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
 		case upRightDir:
-			// 右向きなので、４行目の先頭添え字番号を足す
 			tempMoveIndexX += moveDivX * rightDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
 		case downLeftDir:
-			// 左向きなので、３行目の先頭添え字配列を足す
 			tempMoveIndexX += moveDivX * leftDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
 		case downRightDir:
-			// 右向きなので、４行目の先頭添え字番号を足す
 			tempMoveIndexX += moveDivX * rightDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 		}
 
-		//DrawFormatString(100, 100, GetColor(255, 0, 0), "direction : %d  x:%d y:%d", t, moveCountX, moveCountY);
 		// 移動していない場合は値を初期化
 		if (tempMoveY == 0) moveCountY = 0;
 		if (tempMoveX == 0) moveCountX = 0;
@@ -205,14 +205,14 @@ namespace PlayerScope
 
 		switch (directionState)
 		{
-		case downDir:		stopIndex = tempStopIndex;						break;
-		case upDir:			stopIndex = tempStopIndex + stopDivX;			break;
-		case leftDir:		stopIndex = tempStopIndex + stopDivX * leftDir;	break;
-		case rightDir:		stopIndex = tempStopIndex + stopDivX * rightDir; break;
-		case upLeftDir:		stopIndex = tempStopIndex + stopDivX * leftDir; break;
-		case upRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir; break;
-		case downLeftDir:	stopIndex = tempStopIndex + stopDivX * leftDir; break;
-		case downRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir; break;
+		case upDir:			stopIndex = tempStopIndex + stopDivX;				break;
+		case downDir:		stopIndex = tempStopIndex;							break;
+		case leftDir:		stopIndex = tempStopIndex + stopDivX * leftDir;		break;
+		case rightDir:		stopIndex = tempStopIndex + stopDivX * rightDir;	break;
+		case upLeftDir:		stopIndex = tempStopIndex + stopDivX * leftDir;		break;
+		case upRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir;	break;
+		case downLeftDir:	stopIndex = tempStopIndex + stopDivX * leftDir;		break;
+		case downRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir;	break;
 		}
 	}
 
@@ -221,16 +221,18 @@ namespace PlayerScope
 	//戻り値		:なし
 	//動作			:当たり判定用の処理
 	/////////////////////////////////////////////////////
-	void Player::Collision(Rect playerRect)
+	void Player::Collision()
 	{
 		if (playerCollision->OnCollision(x, y))
 		{
+			// 食い込まないように位置を戻す
 			x = memoryX;
 			y = memoryY;
 
 			return;
 		}
 
+		// 衝突前の位置を記録しておく
 		memoryX = x;
 		memoryY = y;
 	}
@@ -259,13 +261,13 @@ namespace PlayerScope
 	/////////////////////////////////////////////////////
 	void Player::SetPosition()
 	{
-		double top = y + 32;
+		// 当たり判定を付ける範囲を設定しておく
+		double top = y + collisionOffset;
 		double bottom = y + graphSize;
-		double left = x + 20;
-		double right = x + graphSize - 20;
+		double left = x + collisionOffset;
+		double right = x + graphSize - collisionOffset;
 
-		//DrawBox(left, top, right, bottom, GetColor(255, 0, 0), TRUE);
-
+		// 値を保存
 		SetValue(&top, &bottom, &left, &right);
 	}
 
@@ -276,8 +278,8 @@ namespace PlayerScope
 	/////////////////////////////////////////////////////
 	void Player::SetStartPos(double posX, double posY)
 	{
-		x = posX * graphSize + (graphSize / 2);
-		y = posY * graphSize + (graphSize / 2);
+		x = posX * graphSize;
+		y = posY * graphSize;
 	}
 
 	/////////////////////////////////////////////////////
@@ -294,14 +296,6 @@ namespace PlayerScope
 		// プレイヤー入力を更新
 		plyaerInput->Update();
 
-		//DrawFormatString(100, 600, GetColor(255, 255, 255), "top:%lf bottom:%lf left:%lf right:%lf", GetTop(), GetBottom(),GetLeft(),GetRight());
-
-		Move();
-
-		Draw();
-
-		SetPosition();
-
 		// プレイヤーの向きを記憶しておく
 		PlayerProvider::Instance()->SetPlayerDirection(directionState);
 
@@ -309,10 +303,18 @@ namespace PlayerScope
 		PlayerProvider::Instance()->SetPlayerPosX(x);
 		PlayerProvider::Instance()->SetPlayerPosY(y);
 
+		// 常にCollisionRectProviderでPlayerのRectを監視する
 		Rect rect = GetRect();
 		CollisionRectProvider::Instance()->SetPlayerRect(rect);
 
-		Collision(rect);
+		// 当たり判定
+		Collision();
+
+		Move();
+
+		SetPosition();
+
+		Draw();
 	}
 
 }

@@ -17,8 +17,8 @@ namespace RockScope
 
 		switch (dir)
 		{
-		case upDir:		y -= speed; break;
-		case downDir:	y += speed; break;
+		case downDir:		y -= speed; break;
+		case upDir:	y += speed; break;
 
 		case leftDir:
 		case upLeftDir:
@@ -53,26 +53,24 @@ namespace RockScope
 				// îOóÕÇî≠ìÆÇµÇΩÇ∆Ç´ÇÃÉvÉåÉCÉÑÅ[ÇÃå¸Ç´
 				switch (playerDir)
 				{
-				case upDir:		y += backMove; break;
-				case downDir:	y -= backMove; break;
+				case downDir:			y += backMove; break;
+				case upDir:		y -= backMove; break;
 
 				case leftDir:
 				case upLeftDir:
-				case downLeftDir:
-					x += backMove; break;
+				case downLeftDir:	x += backMove; break;
 
 				case rightDir:
 				case upRightDir:
-				case downRightDir:
-					x -= backMove; break;
+				case downRightDir:	x -= backMove; break;
 				}
 			}
 			else if(collisionType == rock)
 			{
-				if (GetRect().top < collisionRect.top) y -= backMove * 2.0;
-				else if (GetRect().top > collisionRect.top) y += backMove * 2.0;
-				else if (GetRect().left < collisionRect.left) x -= backMove * 2.0;
-				else if (GetRect().left > collisionRect.left) x += backMove * 2.0;
+				if		(GetRect().top < collisionRect.top)		y -= backMove * 2.0;
+				else if (GetRect().top > collisionRect.top)		y += backMove * 2.0;
+				else if (GetRect().left < collisionRect.left)	x -= backMove * 2.0;
+				else if (GetRect().left > collisionRect.left)	x += backMove * 2.0;
 			}
 
 			return;
@@ -82,10 +80,10 @@ namespace RockScope
 
 	void Rock::RectSet()
 	{
-		double top = y + offset;
-		double bottom = y + graphSize - offset;
-		double left = x + offset;
-		double right = x + graphSize - offset;
+		double top		= y + offset;
+		double bottom	= y + graphSize - offset;
+		double left		= x + offset;
+		double right	= x + graphSize - offset;
 
 		DrawBox(left, top, right, bottom, GetColor(255, 0, 0), TRUE);
 

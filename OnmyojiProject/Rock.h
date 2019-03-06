@@ -13,18 +13,19 @@ namespace RockScope {
 
 		const int graphSize = 64;
 
+		const int offset = 20;
+
 		const double speed = 1.0;
 
 		const double backMove = 2.0;
 
-		const int offset = 20;
 
 		double x = 0, y = 0;
+
 		double memoryX = 0, memoryY = 0;
 
 		bool isMove = false;
 
-		int count = 0;
 
 		PlayerScope::Direction playerDir;
 

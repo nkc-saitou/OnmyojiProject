@@ -32,6 +32,8 @@ namespace PlayerScope
 		// イメージのサイズ。縦横ともに64px
 		const int graphSize = 64;
 
+		const int collisionOffset = 20;
+
 		// 移動しているときの横の分割数
 		const int moveDivX = 4;
 
@@ -75,7 +77,7 @@ namespace PlayerScope
 		double tiltMove = 0.8;
 
 		// 現在の方向
-		Direction directionState = downDir;
+		Direction directionState = upDir;
 
 		//===============================
 		// 関数
@@ -88,7 +90,7 @@ namespace PlayerScope
 		// 待機状態のイメージ変更処理
 		void IdolGraphSet();
 		// 当たり判定
-		void Collision(Rect playerRect);
+		void Collision();
 		// 表示処理
 		void Draw();
 		// 当たり判定の座標を登録

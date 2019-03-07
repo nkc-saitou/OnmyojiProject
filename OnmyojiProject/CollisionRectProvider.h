@@ -4,12 +4,20 @@
 #include "SettingProvider.h"
 #include <vector>
 
+/*
+///////////////////////////////////////////
+CollisionRectProviderクラス
+
+概要　：当たり判定の範囲を全て記録しておく
+///////////////////////////////////////////
+*/
 class CollisionRectProvider : public Singleton <CollisionRectProvider>
 {
 
 	Rect playerRect;
 	std::vector<Rect> rockRectVec;
 	std::vector<Rect> stageRectVec;
+	std::vector<Rect> goalRectVec;
 
 	const int screenSizeX = SettingProvider::Instance()->screenSizeX;
 	const int screenSizeY = SettingProvider::Instance()->screenSizeY;
@@ -34,6 +42,9 @@ public:
 
 	void SetStageRect(std::vector<Rect> rectVec) { stageRectVec = rectVec; }
 	std::vector<Rect> GetStageRect() { return stageRectVec; }
+
+	void SetGoalRect(std::vector<Rect> rectVec) { goalRectVec = rectVec; }
+	std::vector<Rect> GetGoalRect() { return goalRectVec; }
 
 	Rect GetTopEdgeStageRect() { return topRect; }
 	Rect GetBottomEdgeStageRect() { return bottomRect; }

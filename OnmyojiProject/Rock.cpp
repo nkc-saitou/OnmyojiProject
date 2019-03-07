@@ -17,18 +17,16 @@ namespace RockScope
 
 		switch (dir)
 		{
-		case downDir:		y -= speed; break;
-		case upDir:	y += speed; break;
+		case Direction::upDir:			y -= speed; break;
+		case Direction::downDir:		y += speed; break;
 
-		case leftDir:
-		case upLeftDir:
-		case downLeftDir:
-						x -= speed; break;
+		case Direction::leftDir:
+		case Direction::upLeftDir:
+		case Direction::downLeftDir:	x -= speed; break;
 
-		case rightDir:
-		case upRightDir:
-		case downRightDir:
-						x += speed; break;
+		case Direction::rightDir:
+		case Direction::upRightDir:
+		case Direction::downRightDir:	x += speed; break;
 		}
 	}
 
@@ -53,16 +51,16 @@ namespace RockScope
 				// îOóÕÇî≠ìÆÇµÇΩÇ∆Ç´ÇÃÉvÉåÉCÉÑÅ[ÇÃå¸Ç´
 				switch (playerDir)
 				{
-				case downDir:			y += backMove; break;
-				case upDir:		y -= backMove; break;
+				case Direction::upDir:			y += backMove; break;
+				case Direction::downDir:		y -= backMove; break;
 
-				case leftDir:
-				case upLeftDir:
-				case downLeftDir:	x += backMove; break;
+				case Direction::leftDir:
+				case Direction::upLeftDir:
+				case Direction::downLeftDir:	x += backMove; break;
 
-				case rightDir:
-				case upRightDir:
-				case downRightDir:	x -= backMove; break;
+				case Direction::rightDir:
+				case Direction::upRightDir:
+				case Direction::downRightDir:	x -= backMove; break;
 				}
 			}
 			else if(collisionType == rock)
@@ -84,8 +82,6 @@ namespace RockScope
 		double bottom	= y + graphSize - offset;
 		double left		= x + offset;
 		double right	= x + graphSize - offset;
-
-		DrawBox(left, top, right, bottom, GetColor(255, 0, 0), TRUE);
 
 		SetValue(&top, &bottom, &left, &right);
 	}

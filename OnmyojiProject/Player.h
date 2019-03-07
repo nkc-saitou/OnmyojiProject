@@ -77,7 +77,7 @@ namespace PlayerScope
 		double tiltMove = 0.8;
 
 		// Œ»İ‚Ì•ûŒü
-		Direction directionState = upDir;
+		Direction directionState = Direction::upDir;
 
 		//===============================
 		// ŠÖ”

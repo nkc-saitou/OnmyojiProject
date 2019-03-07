@@ -19,12 +19,6 @@ namespace PlayerScope
 		int rockRectCount = rockRect.size();
 		int stageRectCount = stageRect.size();
 
-		//// 石と当たっているかどうか
-		//for (int i = 0; i < rockRectCount; i++)
-		//{
-		//	if (objectCollision->OnCollision(playerRect, rockRect[i])) return true;
-		//}
-
 		// ステージ上の壁と当たっているかどうか
 		for (int i = 0; i < stageRectCount; i++)
 		{

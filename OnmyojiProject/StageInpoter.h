@@ -32,11 +32,7 @@ enum ChipType
 	chip_playerStartPos,
 	chip_enemy_one_StartPos,
 	chip_enemy_two_StartPos,
-	chip_ster_one,
-	chip_star_two,
-	chip_star_three,
-	chip_star_four,
-	chip_star_five
+	chip_star,
 };
 
 /*
@@ -70,6 +66,8 @@ class StageInpoter :public Singleton <StageInpoter>
 
 	std::vector<std::vector<position>> stageCollisionPos;
 
+	std::vector<std::vector<position>> goalStarPosData;
+
 	// プレイヤーの初期位置
 	std::vector<position> playerPosData;
 
@@ -95,6 +93,8 @@ class StageInpoter :public Singleton <StageInpoter>
 	void AssortmentStageData(int num, std::vector<std::vector<int>>& stageData);
 
 	std::vector<position> StageCollisionSet(std::vector<std::vector<int>> tempData);
+
+	std::vector<position> StageStarPosSet(std::vector<std::vector<int>> tempData);
 
 	// 当たり判定を付ける壁(プレイヤーと接触の可能性がある外側の壁)かどうか
 	bool IsEdgeCollision(int x, int y , std::vector<std::vector<int>> tempData);
@@ -125,6 +125,9 @@ public:
 	// 敵の初期ポジション
 	std::vector<std::vector<position>> GetEnemyOnePosData() { return enemyOnePosData; }
 	std::vector<std::vector<position>> GetEnemyTwoPosData() { return enemyTwoPosData; }
+
+	// ゴール位置の保持
+	std::vector<std::vector<position>> GetStarPosData() { return goalStarPosData; }
 
 	// ステージの数
 	int GetStageCount() { return fileNameVec.size(); }

@@ -7,6 +7,7 @@
 #include "StageDraw.h"
 #include "StageCollision.h"
 #include "RockController.h"
+#include "CreateGoalPoint.h"
 
 /*
 ///////////////////////////////////////////
@@ -27,6 +28,7 @@ class GameScene
 	std::unique_ptr<PlayerScope::Player> player = std::make_unique<PlayerScope::Player>();
 	std::unique_ptr<StageCollision> stageCollision = std::make_unique<StageCollision>();
 	std::unique_ptr<RockScope::RockController> rockController = std::make_unique<RockScope::RockController>();
+	std::unique_ptr<CreateGoalPoint> createGoalPoint = std::make_unique<CreateGoalPoint>();
 
 	vector<Rect> testVec;
 

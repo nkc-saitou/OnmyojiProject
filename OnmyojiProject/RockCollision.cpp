@@ -2,6 +2,7 @@
 #include "SettingProvider.h"
 #include "CollisionRectProvider.h"
 
+#include "DxLib.h"
 
 namespace RockScope 
 {
@@ -15,13 +16,14 @@ namespace RockScope
 		Rect playerRect = CollisionRectProvider::Instance()->GetPlayerRect();
 		std::vector<Rect> rockRect = CollisionRectProvider::Instance()->GetRockRect();
 		std::vector<Rect> stageRect = CollisionRectProvider::Instance()->GetStageRect();
+		std::vector<Rect> goalRect = CollisionRectProvider::Instance()->GetGoalRect();
 
 		Rect topEdgeStageRect = CollisionRectProvider::Instance()->GetRightEdgeStageRect();
 		Rect bottomEdgeStageRect = CollisionRectProvider::Instance()->GetLeftEdgeStageRect();
 		Rect leftEdgeStageRect = CollisionRectProvider::Instance()->GetBottomEdgeStageRect();
 		Rect rightEdgeStageRect = CollisionRectProvider::Instance()->GetTopEdgeStageRect();
 
-		// サイズを取得
+		// 配列のサイズを取得
 		int rockRectCount = rockRect.size();
 		int stageRectCount = stageRect.size();
 
@@ -53,6 +55,19 @@ namespace RockScope
 			{
 				type = wall;
 				collisionRect = stageRect[i];
+				return true;
+			}
+		}
+
+		// ステージ上のゴール地点と当たっているかどうか
+		for (int i = 0; i < goalRect.size(); i++)
+		{
+			if (objectCollision->OnCollision(myRockRect, goalRect[i]))
+			{
+				type = goal;
+				collisionRect = goalRect[i];
+				
+
 				return true;
 			}
 		}

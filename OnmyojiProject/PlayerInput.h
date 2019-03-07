@@ -4,6 +4,13 @@
 
 namespace PlayerScope
 {
+	/*
+	///////////////////////////////////////////
+	PlayerInputクラス
+
+	概要　：プレイやーの入力を管理するクラス
+	///////////////////////////////////////////
+	*/
 	class PlayerInput
 	{
 		int moveAngleInputX = 0;

@@ -1,20 +1,6 @@
 #pragma once
 
-/*
-///////////////////////////////////////////
-RectPosition構造体
-
-概要　：矩形オブジェクトの各座標を記憶する
-使い方：当たり判定を実行する際の引数として与える
-///////////////////////////////////////////
-*/
-typedef struct Rect
-{
-	int top;
-	int bottom;
-	int left;
-	int right;
-};
+#include "S_Rect.h"
 
 /*
 ///////////////////////////////////////////
@@ -29,7 +15,6 @@ class RectShape
 {
 
 	Rect rect;
-
 
 protected:
 	// 構造体の値を更新

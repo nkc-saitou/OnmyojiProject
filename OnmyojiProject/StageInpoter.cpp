@@ -22,24 +22,32 @@ StageInpoter::StageInpoter()
 
 	for (int i = 0; i < fileNameVec.size(); i++)
 	{
+		// 一時的に値を格納しておく配列
 		vector<position> tempStageCollisionPos;
+		vector<position> tempGoalStarPos;
 
 		//　ステージデータ読み込み
 		if (IsSplit(fileNameVec[i], tempStageData))
 		{
 			// ステージデータの仕分け(動かない壁のみステージデータに残し、後は別で他の配列に保存しておく)
 			AssortmentStageData(i, tempStageData);
+
 			// ステージデータを保存
 			stageData.push_back(tempStageData);
 
 			// 当たり判定データの保存
 			tempStageCollisionPos = StageCollisionSet(tempStageData);
 
+			// ゴール位置の保存
+			tempGoalStarPos = StageStarPosSet(tempStageData);
+
+			// 配列の初期化
 			tempStageData.clear();
 		}
 
-		// 当たり判定のデータを格納
+		// データを格納
 		stageCollisionPos.push_back(tempStageCollisionPos);
+		goalStarPosData.push_back(tempGoalStarPos);
 	}
 }
 
@@ -50,7 +58,8 @@ StageInpoter::StageInpoter()
 /////////////////////////////////////////////////////
 vector<position> StageInpoter::StageCollisionSet(vector<vector<int>> tempData)
 {
-	vector<position> stillChipData;
+	// 動かない壁の座標を一時的に保存しておく
+	vector<position> tempStageCollisionPos;
 
 	for (int i = 0; i < tempData.size(); i++)
 	{
@@ -62,12 +71,39 @@ vector<position> StageInpoter::StageCollisionSet(vector<vector<int>> tempData)
 				tempPos.x = j;
 				tempPos.y = i;
 
-				stillChipData.push_back(tempPos);
+				tempStageCollisionPos.push_back(tempPos);
 			}
 		}
 	}
 
-	return stillChipData;
+	return tempStageCollisionPos;
+}
+
+/////////////////////////////////////////////////////
+//引数			:データチップ情報の配列
+//戻り値		:スター(ゴール)の位置
+//動作			:スター(ゴール)の位置を配列に格納
+/////////////////////////////////////////////////////
+std::vector<position> StageInpoter::StageStarPosSet(std::vector<std::vector<int>> tempData)
+{
+	vector<position> tempGoalStarPosData;
+
+	for (int i = 0; i < tempData.size(); i++)
+	{
+		for (int j = 0; j < tempData[i].size(); j++)
+		{
+			if (tempData[i][j] == chip_star)
+			{
+				position tempPos;
+				tempPos.x = j;
+				tempPos.y = i;
+
+				tempGoalStarPosData.push_back(tempPos);
+			}
+		}
+	}
+
+	return tempGoalStarPosData;
 }
 
 /////////////////////////////////////////////////////

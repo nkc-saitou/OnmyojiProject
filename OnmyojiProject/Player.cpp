@@ -56,7 +56,7 @@ namespace PlayerScope
 		// ¶‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 		if (tempMoveX < 0)
 		{
-			directionState = leftDir;
+			directionState = Direction::leftDir;
 
 			// xCount‚ª‚OˆÈã‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚Pˆø‚­
 			if (moveCountX > 0) moveCountX = 0;
@@ -67,7 +67,7 @@ namespace PlayerScope
 		// ‰E‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 		if (tempMoveX > 0)
 		{
-			directionState = rightDir;
+			directionState = Direction::rightDir;
 
 			// xCount‚ª‚OˆÈ‰º‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚P‘«‚·
 			if (moveCountX < 0) moveCountX = 0;
@@ -78,7 +78,7 @@ namespace PlayerScope
 		// ã‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 		if (tempMoveY < 0)
 		{
-			directionState = upDir;
+			directionState = Direction::upDir;
 
 			// yCount‚ª‚OˆÈã‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚Pˆø‚­
 			if (moveCountY > 0) moveCountY = 0;
@@ -89,7 +89,7 @@ namespace PlayerScope
 		// ‰º‚ÉˆÚ“®‚µ‚Ä‚¢‚é
 		if (tempMoveY > 0)
 		{
-			directionState = downDir;
+			directionState = Direction::downDir;
 
 			// yCount‚ª‚OˆÈ‰º‚È‚ç‚O‚É‚µ‚Ä‚©‚ç‚P‘«‚·
 			if (moveCountY < 0) moveCountY = 0;
@@ -108,19 +108,19 @@ namespace PlayerScope
 		{
 			if (tempMoveX < 0 && tempMoveY < 0)
 			{
-				directionState = upLeftDir;
+				directionState = Direction::upLeftDir;
 			}
 			else if (tempMoveX < 0 && tempMoveY > 0)
 			{
-				directionState = downLeftDir;
+				directionState = Direction::downLeftDir;
 			}
 			else if (tempMoveX > 0 && tempMoveY < 0)
 			{
-				directionState = upRightDir;
+				directionState = Direction::upRightDir;
 			}
 			else if (tempMoveX > 0 && tempMoveY > 0)
 			{
-				directionState = downRightDir;
+				directionState = Direction::downRightDir;
 			}
 
 			moveIndex = tempMoveIndexX;
@@ -132,55 +132,55 @@ namespace PlayerScope
 
 			//========== ³–Ê•ûŒü ==========
 
-		case upDir:
+		case Direction::upDir:
 			// ãŒü‚«(Œã‚ëp)‚È‚Ì‚ÅA‚Qs–Ú‚Ìæ“ª“Y‚¦š”z—ñ‚ğ‘«‚·
 			tempMoveIndexY += moveDivX;
 			moveIndex = tempMoveIndexY;
 
 			break;
 
-		case downDir:
+		case Direction::downDir:
 			// ‰ºŒü‚«(³–Êp)‚È‚Ì‚ÅA‚Ps–Ú‚Ìæ“ª“Y‚¦š”z—ñ‚ğresult‚É“n‚·
 			moveIndex = tempMoveIndexY;
 
 			break;
 
-		case leftDir:
+		case Direction::leftDir:
 			// ¶Œü‚«‚È‚Ì‚ÅA‚Rs–Ú‚Ìæ“ª“Y‚¦š”z—ñ‚ğ‘«‚·
-			tempMoveIndexX += moveDivX * leftDir;
+			tempMoveIndexX += moveDivX * (int)Direction::leftDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
-		case rightDir:
+		case Direction::rightDir:
 			// ‰EŒü‚«‚È‚Ì‚ÅA‚Ss–Ú‚Ìæ“ª“Y‚¦š”Ô†‚ğ‘«‚·
-			tempMoveIndexX += moveDivX * rightDir;
+			tempMoveIndexX += moveDivX * (int)Direction::rightDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
 			//========== Î‚ß•ûŒü ==========
 
-		case upLeftDir:
-			tempMoveIndexX += moveDivX * leftDir;
+		case Direction::upLeftDir:
+			tempMoveIndexX += moveDivX * (int)Direction::leftDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
-		case upRightDir:
-			tempMoveIndexX += moveDivX * rightDir;
+		case Direction::upRightDir:
+			tempMoveIndexX += moveDivX * (int)Direction::rightDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
-		case downLeftDir:
-			tempMoveIndexX += moveDivX * leftDir;
+		case Direction::downLeftDir:
+			tempMoveIndexX += moveDivX * (int)Direction::leftDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
 
-		case downRightDir:
-			tempMoveIndexX += moveDivX * rightDir;
+		case Direction::downRightDir:
+			tempMoveIndexX += moveDivX * (int)Direction::rightDir;
 			moveIndex = tempMoveIndexX;
 
 			break;
@@ -205,14 +205,14 @@ namespace PlayerScope
 
 		switch (directionState)
 		{
-		case upDir:			stopIndex = tempStopIndex + stopDivX;				break;
-		case downDir:		stopIndex = tempStopIndex;							break;
-		case leftDir:		stopIndex = tempStopIndex + stopDivX * leftDir;		break;
-		case rightDir:		stopIndex = tempStopIndex + stopDivX * rightDir;	break;
-		case upLeftDir:		stopIndex = tempStopIndex + stopDivX * leftDir;		break;
-		case upRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir;	break;
-		case downLeftDir:	stopIndex = tempStopIndex + stopDivX * leftDir;		break;
-		case downRightDir:	stopIndex = tempStopIndex + stopDivX * rightDir;	break;
+		case Direction::upDir:			stopIndex = tempStopIndex + stopDivX;								break;
+		case Direction::downDir:		stopIndex = tempStopIndex;											break;
+		case Direction::leftDir:		stopIndex = tempStopIndex + stopDivX * (int)Direction::leftDir;		break;
+		case Direction::rightDir:		stopIndex = tempStopIndex + stopDivX * (int)Direction::rightDir;	break;
+		case Direction::upLeftDir:		stopIndex = tempStopIndex + stopDivX * (int)Direction::leftDir;		break;
+		case Direction::upRightDir:		stopIndex = tempStopIndex + stopDivX * (int)Direction::rightDir;	break;
+		case Direction::downLeftDir:	stopIndex = tempStopIndex + stopDivX * (int)Direction::leftDir;		break;
+		case Direction::downRightDir:	stopIndex = tempStopIndex + stopDivX * (int)Direction::rightDir;	break;
 		}
 	}
 

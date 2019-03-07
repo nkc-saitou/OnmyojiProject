@@ -9,7 +9,7 @@ Direction—ñ‹“‘à
 ŠT—v@FˆÚ“®•ûŒü‚Ìó‘Ô‚ğŠÇ—‚·‚é
 ///////////////////////////////////////////
 */
-	enum Direction
+	enum class Direction
 	{
 		upDir = 0,
 		downDir,

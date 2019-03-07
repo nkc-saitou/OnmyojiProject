@@ -22,6 +22,9 @@ void GameScene::SetStage(int num)
 	// ステージの当たり判定を設定する
 	stageCollision->SetCollsionPosition();
 
+	// ゴールの位置をセット
+	createGoalPoint->Init();
+
 	// プレイヤーの初期位置を取得
 	position pos = StageInpoter::Instance()->GetPlayerPosData()[stageNum];
 	player->SetStartPos(pos.x, pos.y);

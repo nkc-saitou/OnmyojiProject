@@ -2,6 +2,13 @@
 #include "Singleton.h"
 #include "E_PlayerDirection.h"
 
+/*
+///////////////////////////////////////////
+PlayerProviderクラス
+
+概要　：プレイヤーの座標や向きを取得できる
+///////////////////////////////////////////
+*/
 class PlayerProvider : public Singleton <PlayerProvider>
 {
 	double x;

@@ -307,14 +307,18 @@ namespace PlayerScope
 		Rect rect = GetRect();
 		CollisionRectProvider::Instance()->SetPlayerRect(rect);
 
-		// “–‚½‚è”»’è
-		Collision();
+		if (SettingProvider::Instance()->GetIsClear() == false)
+		{
+			// “–‚½‚è”»’è
+			Collision();
 
-		Move();
+			Move();
 
-		SetPosition();
+			SetPosition();
+		}
 
 		Draw();
+
 	}
 
 }

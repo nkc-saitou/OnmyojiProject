@@ -62,11 +62,23 @@ namespace RockScope
 		// ステージ上のゴール地点と当たっているかどうか
 		for (int i = 0; i < goalRect.size(); i++)
 		{
+			int temp = goalRect.size();
+
 			if (objectCollision->OnCollision(myRockRect, goalRect[i]))
 			{
 				type = goal;
 				collisionRect = goalRect[i];
-				
+
+				CollisionRectProvider::Instance()->RemoveGoalRectVec(i);
+
+				for (int i = 0; i < rockRectCount; i++)
+				{
+					if (myRockRect.left == rockRect[i].left && myRockRect.top == rockRect[i].top)
+					{
+						CollisionRectProvider::Instance()->RemoveRockRectVec(i);
+						break;
+					}
+				}
 
 				return true;
 			}

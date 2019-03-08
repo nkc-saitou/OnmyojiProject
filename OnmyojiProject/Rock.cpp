@@ -11,7 +11,8 @@ namespace RockScope
 
 	void Rock::Move(Direction dir)
 	{
-		if (isMove != true) return;
+		// 現在動ける状態でない　または　すでにゴール位置にいる場合は終了
+		if (isMove != true || isGoal != false) return;
 
 		playerDir = dir;
 
@@ -42,7 +43,8 @@ namespace RockScope
 		Rect collisionRect;
 		CollisionObjType collisionType;
 
-		if (rockCollision->OnCollision(GetRect(), x, y, collisionRect, collisionType) && isMove == true)
+		if (rockCollision->OnCollision(GetRect(), x, y, collisionRect, collisionType) 
+			&& isMove == true && isGoal == false)
 		{
 			isMove = false;
 
@@ -69,6 +71,10 @@ namespace RockScope
 				else if (GetRect().top > collisionRect.top)		y += backMove * 2.0;
 				else if (GetRect().left < collisionRect.left)	x -= backMove * 2.0;
 				else if (GetRect().left > collisionRect.left)	x += backMove * 2.0;
+			}
+			else if (collisionType == goal)
+			{
+				isGoal = true;
 			}
 
 			return;

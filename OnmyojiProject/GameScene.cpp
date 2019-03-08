@@ -36,6 +36,14 @@ void GameScene::SetStage(int num)
 	testVec = CollisionRectProvider::Instance()->GetStageRect();
 }
 
+void GameScene::GameClear()
+{
+	if (CollisionRectProvider::Instance()->GetGoalRect().size() == 0)
+	{
+		SettingProvider::Instance()->SetClearFlg(true);
+	}
+}
+
 /////////////////////////////////////////////////////
 //ˆø”			:‚È‚µ
 //–ß‚è’l		:‚È‚µ
@@ -71,6 +79,8 @@ void GameScene::Update()
 	player->Updata();
 
 	rockController->Update();
+
+	GameClear();
 
 	//Draw();
 

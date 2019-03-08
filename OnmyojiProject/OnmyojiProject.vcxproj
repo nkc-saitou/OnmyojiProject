@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{271DAC11-FA40-484B-B592-A74AAD85E813}</ProjectGuid>
     <RootNamespace>OnmyojiProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -130,7 +130,6 @@
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="CreateGoalPoint.cpp" />
     <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="GameSceneManager.cpp" />
     <ClCompile Include="ImageLoader.cpp" />
     <ClCompile Include="ObjectCollision.cpp" />
     <ClCompile Include="PlayerCollision.cpp" />
@@ -154,7 +153,6 @@
     <ClInclude Include="FpsFix.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="GameScene.h" />
-    <ClInclude Include="GameSceneManager.h" />
     <ClInclude Include="ImageLoader.h" />
     <ClInclude Include="ObjectCollision.h" />
     <ClInclude Include="PlayerCollision.h" />

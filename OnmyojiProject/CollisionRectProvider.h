@@ -39,12 +39,15 @@ public:
 
 	void SetRockRect(std::vector<Rect> rectVec) { rockRectVec = rectVec; }
 	std::vector<Rect> GetRockRect() { return rockRectVec; }
+	void RemoveRockRectVec(int index);
 
 	void SetStageRect(std::vector<Rect> rectVec) { stageRectVec = rectVec; }
 	std::vector<Rect> GetStageRect() { return stageRectVec; }
+	void RemoveStageRectVec(int index);
 
 	void SetGoalRect(std::vector<Rect> rectVec) { goalRectVec = rectVec; }
 	std::vector<Rect> GetGoalRect() { return goalRectVec; }
+	void RemoveGoalRectVec(int index);
 
 	Rect GetTopEdgeStageRect() { return topRect; }
 	Rect GetBottomEdgeStageRect() { return bottomRect; }

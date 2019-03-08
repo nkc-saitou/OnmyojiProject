@@ -42,6 +42,8 @@ class GameScene
 
 	void Draw();
 
+	void GameClear();
+
 public:
 
 	void SetStage(int num);

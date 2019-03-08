@@ -33,6 +33,8 @@ namespace RockScope {
 
 		bool isMove = false;
 
+		bool isGoal = false;
+
 
 		PlayerScope::Direction playerDir;
 
@@ -52,5 +54,7 @@ namespace RockScope {
 		void Update();
 
 		void IsMove(bool tempIsMove) { isMove = tempIsMove; }
+
+		bool IsGoal() { return isGoal; }
 	};
 }

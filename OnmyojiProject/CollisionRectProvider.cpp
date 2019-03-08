@@ -22,3 +22,18 @@ CollisionRectProvider::CollisionRectProvider()
 	rightRect.left = screenSizeX - graphSize;
 	rightRect.right = screenSizeX;
 }
+
+void CollisionRectProvider::RemoveRockRectVec(int index)
+{
+	rockRectVec.erase(rockRectVec.begin() + index);
+}
+
+void CollisionRectProvider::RemoveStageRectVec(int index)
+{
+	stageRectVec.erase(stageRectVec.begin() + index);
+}
+
+void CollisionRectProvider::RemoveGoalRectVec(int index)
+{
+	goalRectVec.erase(goalRectVec.begin() + index);
+}

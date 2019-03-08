@@ -38,7 +38,7 @@ namespace RockScope
 
 		for (int i = 0; i < rock.size(); i++)
 		{
-			tempRect.push_back(rock[i]->GetRect());
+			if(rock[i]->IsGoal() != true) tempRect.push_back(rock[i]->GetRect());
 		}
 
 		// “–‚½‚è”»’è‚ð‘ã“ü

@@ -17,7 +17,6 @@ StageInpoter::StageInpoter()
 	// csvファイルの名前を取得
 	GetFileData(fileNameVec);
 
-
 	vector<vector<int>> tempStageData;
 
 	for (int i = 0; i < fileNameVec.size(); i++)
@@ -154,7 +153,6 @@ void StageInpoter::AssortmentStageData(int num, vector<vector<int>>& stageData)
 	vector<position> tempEnemyTwoPosData;
 	for (int y = 0; y < stageY; y++)
 	{
-
 		for (int x = 0; x < stageX; x++)
 		{
 			position tempPos;

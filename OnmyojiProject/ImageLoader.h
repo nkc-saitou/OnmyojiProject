@@ -16,6 +16,7 @@ enum ImageDataIndex
 	playerWalkImage,
 	playerIdolImage,
 	backImage,
+	titlelogoImage,
 	maxImage
 };
 
@@ -43,6 +44,7 @@ class ImageLoader : public Singleton <ImageLoader>
 		"../OnmyojiProject/Image/PlayerRun.png" ,
 		"../OnmyojiProject/Image/Player_idol.png",
 		"../OnmyojiProject/Image/BackGround_1.png",
+		"../OnmyojiProject/Image/titlelogo.png",
 	};
 
 	// グラフィックハンドル
@@ -51,6 +53,7 @@ class ImageLoader : public Singleton <ImageLoader>
 	int playerWalkGh[16];
 	int playerIdolGh[8];
 	int backGroundGh;
+	int titlelogoGh;
 
 
 	//===============================
@@ -68,4 +71,5 @@ public:
 	int* GetPlayerWalkGH() { return playerWalkGh; }
 	int* GetPlayerIdolGH() { return playerIdolGh; }
 	int GetBackGroundGH() { return backGroundGh; }
+	int GetTitleLogoGh() { return titlelogoGh; }
 };

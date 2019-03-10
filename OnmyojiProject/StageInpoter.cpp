@@ -159,9 +159,6 @@ void StageInpoter::AssortmentStageData(int num, vector<vector<int>>& stageData)
 			tempPos.x = x;
 			tempPos.y = y;
 
-			DrawFormatString(100, 200, GetColor(255, 0, 0), "direction : %d %d", tempPos.x, tempPos.y);
-
-
 			// ‰ŠúˆÊ’u‚Ìî•ñ‚ğ”z—ñ‚ÉŠi”[
 			switch (stageData[y][x])
 			{

@@ -10,18 +10,47 @@ Control::Control()
 {
 	ImageLoader::Instance()->ImageDiv();
 
-	// テストステージ読み込み用
-	gameScene->SetStage(0);
 }
+
 
 /////////////////////////////////////////////////////
 //引数			:なし
 //戻り値		:なし
-//動作			:シーン遷移
+//動作			:画像の読み込み
 /////////////////////////////////////////////////////
-void Control::SceneChange(SceneState scene)
+void Control::ChangeScene()
 {
-	
+	sceneState = SettingProvider::Instance()->GetSceneState();
+
+	// シーン遷移したかどうか
+	auto isSceneChange = [](SceneState memoryState, SceneState sceneState)
+	{
+		return (memoryState != sceneState) ? true : false;
+	};
+
+	switch (sceneState)
+	{
+	case SceneState::titleScene:
+		titleScene->Uptate();
+		break;
+
+	case SceneState::selectScene:
+		break;
+
+	case SceneState::gameScene:
+		if (isSceneChange(memoryState, sceneState))
+		{
+			gameScene->SetStage(0);
+		}
+		gameScene->Update();
+		break;
+
+	case SceneState::resultScene:
+		break;
+	}
+
+	// 更新
+	memoryState = sceneState;
 }
 
 /////////////////////////////////////////////////////
@@ -31,5 +60,5 @@ void Control::SceneChange(SceneState scene)
 /////////////////////////////////////////////////////
 void Control::Update()
 {
-	gameScene->Update();
+	ChangeScene();
 }

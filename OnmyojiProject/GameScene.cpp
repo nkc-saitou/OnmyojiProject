@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "SettingProvider.h"
 #include "CollisionRectProvider.h"
+#include "E_SceneState.h"
 #include "DxLib.h"
 
 /////////////////////////////////////////////////////
@@ -12,6 +13,16 @@ void GameScene::SetStage(int num)
 {
 	// ステージの総数より大きな数字が与えられないように設定
 	if (MaxStageNum > num) stageNum = num;
+
+
+	stageDraw = std::make_unique<StageDraw>();
+	player = std::make_unique<PlayerScope::Player>();
+	stageCollision = std::make_unique<StageCollision>();
+	rockController = std::make_unique<RockScope::RockController>();
+	createGoalPoint = std::make_unique<CreateGoalPoint>();
+
+
+	SettingProvider::Instance()->SetClearFlg(false);
 
 	// ステージ番号を記録させておく
 	SettingProvider::Instance()->SetStageNumber(stageNum);
@@ -41,6 +52,7 @@ void GameScene::GameClear()
 	if (CollisionRectProvider::Instance()->GetGoalRect().size() == 0)
 	{
 		SettingProvider::Instance()->SetClearFlg(true);
+		SettingProvider::Instance()->SetSceneState(SceneState::titleScene);
 	}
 }
 
@@ -83,5 +95,4 @@ void GameScene::Update()
 	GameClear();
 
 	//Draw();
-
 }

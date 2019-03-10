@@ -14,4 +14,5 @@ void ImageLoader::ImageDiv()
 	LoadDivGraph(fileName[playerIdolImage], 8, 2, 4, 64, 64, playerIdolGh);
 
 	backGroundGh = LoadGraph(fileName[backImage]);
+	titlelogoGh = LoadGraph(fileName[titlelogoImage]);
 }

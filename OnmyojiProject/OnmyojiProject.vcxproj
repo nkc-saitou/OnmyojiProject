@@ -83,6 +83,9 @@
     <Link>
       <AdditionalLibraryDirectories>C:\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ShaderModel>2.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -109,6 +112,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>C:\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
     </Link>
+    <FxCompile>
+      <ShaderModel>2.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -137,6 +143,7 @@
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="RockCollision.cpp" />
     <ClCompile Include="RockController.cpp" />
+    <ClCompile Include="SceneFade.cpp" />
     <ClCompile Include="StageCollision.cpp" />
     <ClCompile Include="StageDraw.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -144,12 +151,14 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="StageEditorTool.cpp" />
     <ClCompile Include="StageInpoter.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CircleShape.h" />
     <ClInclude Include="CreateGoalPoint.h" />
     <ClInclude Include="E_CollisionObj.h" />
+    <ClInclude Include="E_SceneState.h" />
     <ClInclude Include="FpsFix.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="GameScene.h" />
@@ -163,6 +172,7 @@
     <ClInclude Include="Rock.h" />
     <ClInclude Include="RockCollision.h" />
     <ClInclude Include="RockController.h" />
+    <ClInclude Include="SceneFade.h" />
     <ClInclude Include="SettingProvider.h" />
     <ClInclude Include="StageCollision.h" />
     <ClInclude Include="StageDraw.h" />
@@ -174,6 +184,7 @@
     <ClInclude Include="StageEditorTool.h" />
     <ClInclude Include="StageInpoter.h" />
     <ClInclude Include="S_Rect.h" />
+    <ClInclude Include="TitleScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

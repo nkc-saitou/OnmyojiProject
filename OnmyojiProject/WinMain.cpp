@@ -30,6 +30,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//•`‰ææ‚ð— ‰æ–Ê‚É‚·‚é
 	SetDrawScreen(DX_SCREEN_BACK);
 
+
 	while (ProcessMessage() == 0)
 	{
 		control->Update();

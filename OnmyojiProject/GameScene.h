@@ -24,11 +24,11 @@ class GameScene
 	// ステージ総数
 	const int MaxStageNum = StageInpoter::Instance()->GetStageCount();
 
-	std::unique_ptr<StageDraw> stageDraw = std::make_unique<StageDraw>();
-	std::unique_ptr<PlayerScope::Player> player = std::make_unique<PlayerScope::Player>();
-	std::unique_ptr<StageCollision> stageCollision = std::make_unique<StageCollision>();
-	std::unique_ptr<RockScope::RockController> rockController = std::make_unique<RockScope::RockController>();
-	std::unique_ptr<CreateGoalPoint> createGoalPoint = std::make_unique<CreateGoalPoint>();
+	std::unique_ptr<StageDraw> stageDraw;
+	std::unique_ptr<PlayerScope::Player> player;
+	std::unique_ptr<StageCollision> stageCollision;
+	std::unique_ptr<RockScope::RockController> rockController;
+	std::unique_ptr<CreateGoalPoint> createGoalPoint;
 
 	vector<Rect> testVec;
 

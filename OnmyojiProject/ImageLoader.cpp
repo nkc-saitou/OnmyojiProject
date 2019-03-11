@@ -13,6 +13,7 @@ void ImageLoader::ImageDiv()
 	LoadDivGraph(fileName[playerWalkImage], 16, 4, 4, 64, 64, playerWalkGh);
 	LoadDivGraph(fileName[playerIdolImage], 8, 2, 4, 64, 64, playerIdolGh);
 
+	backTitleGroundGh = LoadGraph(fileName[backTitleImage]);
 	backGroundGh = LoadGraph(fileName[backGameImage]);
 	backClearGroundGh = LoadGraph(fileName[backClearImage]);
 	titlelogoGh = LoadGraph(fileName[titlelogoImage]);

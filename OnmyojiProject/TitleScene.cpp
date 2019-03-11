@@ -4,9 +4,11 @@
 #include "E_SceneState.h"
 #include "ImageLoader.h"
 
+
 void TitleScene::Draw()
 {
-	DrawGraph(screenX, screenY, ImageLoader::Instance()->GetTitleLogoGh(), FALSE);
+	DrawGraph(0, 0, ImageLoader::Instance()->GetBackTitleGroundGh(), TRUE);
+	DrawGraph(screenX, screenY, ImageLoader::Instance()->GetTitleLogoGh(), TRUE);
 }
 
 void TitleScene::Uptate()

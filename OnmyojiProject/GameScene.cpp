@@ -24,7 +24,6 @@ void GameScene::SetStage(int num)
 	rockController = std::make_unique<RockScope::RockController>();
 	createGoalPoint = std::make_unique<CreateGoalPoint>();
 
-
 	SettingProvider::Instance()->SetClearFlg(false);
 
 	// ステージ番号を記録させておく

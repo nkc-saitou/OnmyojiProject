@@ -1,5 +1,6 @@
 #include "Control.h"
 #include "DxLib.h"
+#include "AudioManager.h"
 
 /////////////////////////////////////////////////////
 //ˆø”			:‚È‚µ
@@ -9,6 +10,9 @@
 Control::Control()
 {
 	ImageLoader::Instance()->ImageDiv();
+	AudioManager::Instance()->LoadSound();
+
+	AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_TitleSH());
 
 }
 
@@ -31,6 +35,11 @@ void Control::ChangeScene()
 	switch (sceneState)
 	{
 	case SceneState::titleScene:
+		if (isSceneChange(memoryState, sceneState))
+		{
+			AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_TitleSH());
+		}
+
 		titleScene->Uptate();
 		break;
 
@@ -38,12 +47,21 @@ void Control::ChangeScene()
 		break;
 
 	case SceneState::gameScene:
-		if (isSceneChange(memoryState, sceneState)) gameScene->SetStage(0);
+		if (isSceneChange(memoryState, sceneState))
+		{
+			AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_GameSh());
+			gameScene->SetStage(0);
+		}
+
 		gameScene->Update();
 		break;
 
 	case SceneState::resultScene:
-		if (isSceneChange(memoryState, sceneState)) resultScene->Init();
+		if (isSceneChange(memoryState, sceneState))
+		{
+			AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_ResultSh());
+			resultScene->Init();
+		}
 		resultScene->Update();
 		break;
 	}

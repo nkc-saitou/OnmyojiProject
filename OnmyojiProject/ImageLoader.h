@@ -15,6 +15,7 @@ enum ImageDataIndex
 	toolImage,
 	playerWalkImage,
 	playerIdolImage,
+	backTitleImage,
 	backGameImage,
 	backClearImage,
 	titlelogoImage,
@@ -46,9 +47,10 @@ class ImageLoader : public Singleton <ImageLoader>
 		"../OnmyojiProject/Image/TestMapChip4.png" ,
 		"../OnmyojiProject/Image/PlayerRun.png" ,
 		"../OnmyojiProject/Image/Player_idol.png",
+		"../OnmyojiProject/Image/titleBack.png",
 		"../OnmyojiProject/Image/BackGround_1.png",
 		"../OnmyojiProject/Image/BackGround.png",
-		"../OnmyojiProject/Image/titlelogo.png",
+		"../OnmyojiProject/Image/star.png",
 		"../OnmyojiProject/Image/gameEfefct.png",
 		"../OnmyojiProject/Image/gameEfefctMove.png",
 	};
@@ -58,6 +60,7 @@ class ImageLoader : public Singleton <ImageLoader>
 	int toolStageGh[11];
 	int playerWalkGh[16];
 	int playerIdolGh[8];
+	int backTitleGroundGh;
 	int backGroundGh;
 	int backClearGroundGh;
 	int titlelogoGh;
@@ -79,6 +82,7 @@ public:
 	int* GetToolStageGH() { return toolStageGh; }
 	int* GetPlayerWalkGH() { return playerWalkGh; }
 	int* GetPlayerIdolGH() { return playerIdolGh; }
+	int GetBackTitleGroundGh() { return backTitleGroundGh; }
 	int GetBackGroundGH() { return backGroundGh; }
 	int GetBackClearGroundGh() { return backClearGroundGh; }
 	int GetTitleLogoGh() { return titlelogoGh; }

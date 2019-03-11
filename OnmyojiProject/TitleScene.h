@@ -3,11 +3,16 @@
 
 class TitleScene
 {
-	int screenX = SettingProvider::Instance()->screenSizeX / 5;
-	int screenY = SettingProvider::Instance()->screenSizeY / 3;
+	int screenX = 1300;
+	int screenY = 300;
+
+	int c = 0;
+
+	bool isFade = true;
 
 	void Draw();
 
 public:
+
 	void Uptate();
 };

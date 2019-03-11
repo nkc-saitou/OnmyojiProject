@@ -2,6 +2,9 @@
 #include "SettingProvider.h"
 #include "CollisionRectProvider.h"
 #include "E_SceneState.h"
+
+#include "FadeManager.h"
+#include "ImageLoader.h"
 #include "DxLib.h"
 
 /////////////////////////////////////////////////////
@@ -15,7 +18,7 @@ void GameScene::SetStage(int num)
 	if (MaxStageNum > num) stageNum = num;
 
 
-	stageDraw = std::make_unique<StageDraw>();
+	stageDraw = std::make_unique<StageDraw>(SceneState::gameScene);
 	player = std::make_unique<PlayerScope::Player>();
 	stageCollision = std::make_unique<StageCollision>();
 	rockController = std::make_unique<RockScope::RockController>();
@@ -51,8 +54,12 @@ void GameScene::GameClear()
 {
 	if (CollisionRectProvider::Instance()->GetGoalRect().size() == 0)
 	{
-		SettingProvider::Instance()->SetClearFlg(true);
-		SettingProvider::Instance()->SetSceneState(SceneState::titleScene);
+		if (FadeManager::Instance()->IsWhiteFadeIn())
+		{
+			SettingProvider::Instance()->SetClearFlg(true);
+			SettingProvider::Instance()->SetSceneState(SceneState::resultScene);
+		}
+
 	}
 }
 
@@ -92,7 +99,21 @@ void GameScene::Update()
 
 	rockController->Update();
 
+
+	// “WŽ¦‰ï—p@I‚í‚Á‚½‚çÁ‚·
+	DrawGraph(0, 0, ImageLoader::Instance()->GetGameEffectGh(), TRUE);
+
+	DrawGraph(oneEffect, 0, ImageLoader::Instance()->GetGameEffectMoveGh(), TRUE);
+	DrawGraph(twoEffect, 0, ImageLoader::Instance()->GetGameEffectMoveGh(), TRUE);
+
+	oneEffect = (oneEffect > -1920) ? (oneEffect - 1) : 1920;
+	twoEffect = (twoEffect > -1920) ? (twoEffect - 1) : 1920;
+
+
+
+
 	GameClear();
+
 
 	//Draw();
 }

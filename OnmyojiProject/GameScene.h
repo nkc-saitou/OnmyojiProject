@@ -35,6 +35,8 @@ class GameScene
 	// GameSceneで再生するステージの番号
 	int stageNum;
 
+	int oneEffect = 1920, twoEffect = 1920 * 2, y = 0;
+	int c = 0;
 
 	//===============================
 	// 関数

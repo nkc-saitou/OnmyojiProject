@@ -2,6 +2,7 @@
 
 #include <memory>
 #include "StageInpoter.h"
+#include "E_SceneState.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ class StageDraw
 	const int stageWidth = StageInpoter::Instance()->GetStageWidth();
 	const int stageHeight = StageInpoter::Instance()->GetStageHeight();
 
+	SceneState sceneState;
 
 	//===============================
 	// ä÷êî
@@ -34,6 +36,8 @@ class StageDraw
 	void Draw();
 	
 public:
+
+	StageDraw(SceneState state);
 
 	void Update();
 

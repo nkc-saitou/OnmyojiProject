@@ -38,14 +38,13 @@ void Control::ChangeScene()
 		break;
 
 	case SceneState::gameScene:
-		if (isSceneChange(memoryState, sceneState))
-		{
-			gameScene->SetStage(0);
-		}
+		if (isSceneChange(memoryState, sceneState)) gameScene->SetStage(0);
 		gameScene->Update();
 		break;
 
 	case SceneState::resultScene:
+		if (isSceneChange(memoryState, sceneState)) resultScene->Init();
+		resultScene->Update();
 		break;
 	}
 

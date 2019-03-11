@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{271DAC11-FA40-484B-B592-A74AAD85E813}</ProjectGuid>
     <RootNamespace>OnmyojiProject</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CollisionRectProvider.cpp" />
+    <ClCompile Include="FadeManager.cpp" />
     <ClCompile Include="FpsFix.cpp" />
     <ClCompile Include="Control.cpp" />
     <ClCompile Include="CreateGoalPoint.cpp" />
@@ -140,10 +141,10 @@
     <ClCompile Include="ObjectCollision.cpp" />
     <ClCompile Include="PlayerCollision.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="Rock.cpp" />
     <ClCompile Include="RockCollision.cpp" />
     <ClCompile Include="RockController.cpp" />
-    <ClCompile Include="SceneFade.cpp" />
     <ClCompile Include="StageCollision.cpp" />
     <ClCompile Include="StageDraw.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="CreateGoalPoint.h" />
     <ClInclude Include="E_CollisionObj.h" />
     <ClInclude Include="E_SceneState.h" />
+    <ClInclude Include="FadeManager.h" />
     <ClInclude Include="FpsFix.h" />
     <ClInclude Include="Control.h" />
     <ClInclude Include="GameScene.h" />
@@ -169,10 +171,10 @@
     <ClInclude Include="E_PlayerDirection.h" />
     <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="PlayerProvider.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="Rock.h" />
     <ClInclude Include="RockCollision.h" />
     <ClInclude Include="RockController.h" />
-    <ClInclude Include="SceneFade.h" />
     <ClInclude Include="SettingProvider.h" />
     <ClInclude Include="StageCollision.h" />
     <ClInclude Include="StageDraw.h" />

@@ -9,6 +9,7 @@
 #include "StageInpoter.h"
 #include "ImageLoader.h"
 #include "E_SceneState.h"
+#include "ResultScene.h"
 
 using namespace std;
 
@@ -28,6 +29,7 @@ class Control
 
 	unique_ptr<TitleScene> titleScene = make_unique<TitleScene>();
 	unique_ptr<GameScene> gameScene = make_unique<GameScene>();
+	unique_ptr<ResultScene> resultScene = make_unique<ResultScene>();
 
 	// åªç›ÇÃÉVÅ[Éì
 	SceneState sceneState = SceneState::titleScene;

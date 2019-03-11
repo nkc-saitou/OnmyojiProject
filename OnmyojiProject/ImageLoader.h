@@ -15,8 +15,11 @@ enum ImageDataIndex
 	toolImage,
 	playerWalkImage,
 	playerIdolImage,
-	backImage,
+	backGameImage,
+	backClearImage,
 	titlelogoImage,
+	gameEffect,
+	gameEffectMove,
 	maxImage
 };
 
@@ -44,7 +47,10 @@ class ImageLoader : public Singleton <ImageLoader>
 		"../OnmyojiProject/Image/PlayerRun.png" ,
 		"../OnmyojiProject/Image/Player_idol.png",
 		"../OnmyojiProject/Image/BackGround_1.png",
+		"../OnmyojiProject/Image/BackGround.png",
 		"../OnmyojiProject/Image/titlelogo.png",
+		"../OnmyojiProject/Image/gameEfefct.png",
+		"../OnmyojiProject/Image/gameEfefctMove.png",
 	};
 
 	// グラフィックハンドル
@@ -53,7 +59,10 @@ class ImageLoader : public Singleton <ImageLoader>
 	int playerWalkGh[16];
 	int playerIdolGh[8];
 	int backGroundGh;
+	int backClearGroundGh;
 	int titlelogoGh;
+	int gameEffectGh;
+	int gameEffectMoveGh;
 
 
 	//===============================
@@ -71,5 +80,8 @@ public:
 	int* GetPlayerWalkGH() { return playerWalkGh; }
 	int* GetPlayerIdolGH() { return playerIdolGh; }
 	int GetBackGroundGH() { return backGroundGh; }
+	int GetBackClearGroundGh() { return backClearGroundGh; }
 	int GetTitleLogoGh() { return titlelogoGh; }
+	int GetGameEffectGh() { return gameEffectGh; }
+	int GetGameEffectMoveGh() { return gameEffectMoveGh; }
 };

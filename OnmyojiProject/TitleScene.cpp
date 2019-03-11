@@ -17,4 +17,5 @@ void TitleScene::Uptate()
 	{
 		SettingProvider::Instance()->SetSceneState(SceneState::gameScene);
 	}
+
 }

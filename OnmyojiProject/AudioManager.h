@@ -55,8 +55,8 @@ public:
 
 	void LoadSound();
 
-	void PlayBGM(int sh,int volume = 125);
-	void PlaySE(int sh,int volume = 125);
+	void PlayBGM(int sh,int volume = 255);
+	void PlaySE(int sh,int volume = 255);
 
 	//===============================
 	// ÉQÉbÉ^Å[

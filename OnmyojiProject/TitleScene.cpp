@@ -15,7 +15,7 @@ void TitleScene::Uptate()
 {
 	Draw();
 
-	if (Input::Instance()->ButtonDown(XINPUT_BUTTON_A, Pad_1))
+	if (Input::Instance()->ButtonDown(XINPUT_BUTTON_A, Pad_1) || Input::Instance()->ButtonDown(KEY_INPUT_RETURN))
 	{
 		SettingProvider::Instance()->SetSceneState(SceneState::gameScene);
 	}

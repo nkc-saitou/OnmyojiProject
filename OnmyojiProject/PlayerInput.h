@@ -13,10 +13,13 @@ namespace PlayerScope
 	*/
 	class PlayerInput
 	{
+		const int moveInputValue = 1000;
+
 		int moveAngleInputX = 0;
 		int moveAngleInputY = 0;
 
 		bool isAction = false;
+		bool isReset = false;
 
 		Direction playerDir;
 
@@ -28,6 +31,8 @@ namespace PlayerScope
 		void Update();
 
 		bool GetIsAction() { return isAction; }
+
+		bool GetIsReset() { return isReset; }
 
 		int GetMoveAngleX() { return moveAngleInputX; }
 		int GetMoveAngleY() { return moveAngleInputY; }

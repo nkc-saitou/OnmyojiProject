@@ -53,16 +53,16 @@ namespace RockScope
 				// ”O—Í‚ğ”­“®‚µ‚½‚Æ‚«‚ÌƒvƒŒƒCƒ„[‚ÌŒü‚«
 				switch (playerDir)
 				{
-				case Direction::upDir:			y += backMove; break;
-				case Direction::downDir:		y -= backMove; break;
+				case Direction::upDir:			y += backMove * 2.0; break;
+				case Direction::downDir:		y -= backMove * 2.0; break;
 
 				case Direction::leftDir:
 				case Direction::upLeftDir:
-				case Direction::downLeftDir:	x += backMove; break;
+				case Direction::downLeftDir:	x += backMove * 2.0; break;
 
 				case Direction::rightDir:
 				case Direction::upRightDir:
-				case Direction::downRightDir:	x -= backMove; break;
+				case Direction::downRightDir:	x -= backMove * 2.0; break;
 				}
 			}
 			else if(collisionType == rock)

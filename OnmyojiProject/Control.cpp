@@ -1,6 +1,7 @@
 #include "Control.h"
 #include "DxLib.h"
 #include "AudioManager.h"
+#include "Input.h"
 
 /////////////////////////////////////////////////////
 //ˆø”			:‚È‚µ
@@ -47,7 +48,7 @@ void Control::ChangeScene()
 		break;
 
 	case SceneState::gameScene:
-		if (isSceneChange(memoryState, sceneState))
+		if (isSceneChange(memoryState, sceneState) || Input::Instance()->ButtonDown(XINPUT_BUTTON_Y, Pad_1))
 		{
 			AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_GameSh());
 			gameScene->SetStage(0);

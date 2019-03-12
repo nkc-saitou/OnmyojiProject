@@ -8,6 +8,7 @@ namespace PlayerScope
 		moveAngleInputX = Input::Instance()->AngleInputX(Pad_1);
 		moveAngleInputY = Input::Instance()->AngleInputY(Pad_1);
 
+		return;
 
 		if (Input::Instance()->Button(KEY_INPUT_LEFT)) moveAngleInputX = -moveInputValue;
 		else if (Input::Instance()->Button(KEY_INPUT_RIGHT)) moveAngleInputX = moveInputValue;

@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "AudioManager.h"
 #include "Input.h"
+#include "FadeManager.h"
 
 /////////////////////////////////////////////////////
 //ˆø”			:‚È‚µ
@@ -14,6 +15,8 @@ Control::Control()
 	AudioManager::Instance()->LoadSound();
 
 	AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_TitleSH());
+
+	FadeManager::Instance()->ResetFadeValue();
 
 }
 

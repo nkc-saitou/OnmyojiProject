@@ -32,6 +32,8 @@ class GameScene
 
 	vector<Rect> testVec;
 
+	bool isTest = false;
+
 	// GameSceneで再生するステージの番号
 	int stageNum;
 

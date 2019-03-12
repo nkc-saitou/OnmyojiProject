@@ -29,6 +29,7 @@ bool FadeManager::IsWhiteFadeOut()
 
 	if (c < 0)
 	{
+		c = -1;
 		return true;
 	}
 

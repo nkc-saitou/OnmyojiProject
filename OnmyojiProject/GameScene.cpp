@@ -48,11 +48,14 @@ void GameScene::SetStage(int num)
 
 	// テスト描画用
 	testVec = CollisionRectProvider::Instance()->GetStageRect();
+
+
+	isTest = false;
 }
 
 void GameScene::GameClear()
 {
-	if (CollisionRectProvider::Instance()->GetGoalRect().size() == 0)
+	if (CollisionRectProvider::Instance()->GetGoalRect().size() == 0 || isTest == true)
 	{
 		if (FadeManager::Instance()->IsWhiteFadeIn())
 		{
@@ -95,6 +98,8 @@ void GameScene::Update()
 {
 	if (Input::Instance()->ButtonDown(XINPUT_BUTTON_Y,Pad_1) || Input::Instance()->ButtonDown(KEY_INPUT_X))
 		SettingProvider::Instance()->SetSceneState(SceneState::titleScene);
+
+	if (Input::Instance()->ButtonDown(KEY_INPUT_T)) isTest = true;
 
 	stageDraw->Update();
 

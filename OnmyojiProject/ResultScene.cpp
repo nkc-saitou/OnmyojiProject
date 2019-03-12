@@ -24,7 +24,7 @@ void ResultScene::Update()
 	if (isFadeFirst == false)
 		if(FadeManager::Instance()->IsWhiteFadeOut()) isFadeFirst = true;
 
-	if (Input::Instance()->ButtonDown(XINPUT_BUTTON_A, Pad_1))
+	if (Input::Instance()->ButtonDown(XINPUT_BUTTON_A, Pad_1) || Input::Instance()->ButtonDown(KEY_INPUT_RETURN))
 	{
 		SettingProvider::Instance()->SetSceneState(SceneState::titleScene);
 	}

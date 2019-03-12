@@ -48,7 +48,7 @@ void Control::ChangeScene()
 		break;
 
 	case SceneState::gameScene:
-		if (isSceneChange(memoryState, sceneState) || Input::Instance()->ButtonDown(XINPUT_BUTTON_Y, Pad_1))
+		if (isSceneChange(memoryState, sceneState))
 		{
 			AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_GameSh());
 			gameScene->SetStage(0);

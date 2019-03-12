@@ -2,6 +2,7 @@
 #include "SettingProvider.h"
 #include "CollisionRectProvider.h"
 #include "E_SceneState.h"
+#include "Input.h"
 
 #include "FadeManager.h"
 #include "ImageLoader.h"
@@ -92,6 +93,9 @@ void GameScene::Draw()
 /////////////////////////////////////////////////////
 void GameScene::Update()
 {
+	if (Input::Instance()->ButtonDown(XINPUT_BUTTON_Y,Pad_1) || Input::Instance()->ButtonDown(KEY_INPUT_X))
+		SettingProvider::Instance()->SetSceneState(SceneState::titleScene);
+
 	stageDraw->Update();
 
 	player->Updata();

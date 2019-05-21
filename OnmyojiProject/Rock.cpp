@@ -31,10 +31,22 @@ namespace RockScope
 		}
 	}
 
+	void Rock::SetLayerData()
+	{
+		rendererData.x = x;
+		rendererData.y = y;
+		rendererData.gh = ImageLoader::Instance()->GetGameStageGH()[chip_rock];
+		rendererData.orderInLayer = 0;
+		rendererData.layerType = LayerType::object;
+		rendererData.TransparencySortFlg = TRUE;
+		rendererData.transFlg = TRUE;
+	}
+
 
 	void Rock::Draw()
 	{
-		DrawExtendGraph(x, y, x + graphSize, y + graphSize, ImageLoader::Instance()->GetGameStageGH()[chip_rock], TRUE);
+		SetLayerData();
+		//DrawExtendGraph(x, y, x + graphSize, y + graphSize, ImageLoader::Instance()->GetGameStageGH()[chip_rock], TRUE);
 	}
 
 
@@ -43,36 +55,42 @@ namespace RockScope
 		Rect collisionRect;
 		CollisionObjType collisionType;
 
+		// 何かとぶつかった際、ぶつかった場所から少しずらす
+	    double backAdjust = 3.0;
+
 		if (rockCollision->OnCollision(GetRect(), x, y, collisionRect, collisionType) 
 			&& isMove == true && isGoal == false)
 		{
 			isMove = false;
 
-			if (collisionType == wall)
+			// 壁に当たった時
+			if (collisionType == CollisionObjType::wall)
 			{
 				// 念力を発動したときのプレイヤーの向き
 				switch (playerDir)
 				{
-				case Direction::upDir:			y += backMove * 2.0; break;
-				case Direction::downDir:		y -= backMove * 2.0; break;
+				case Direction::upDir:			y += backMove * backAdjust; break;
+				case Direction::downDir:		y -= backMove * backAdjust; break;
 
 				case Direction::leftDir:
 				case Direction::upLeftDir:
-				case Direction::downLeftDir:	x += backMove * 2.0; break;
+				case Direction::downLeftDir:	x += backMove * backAdjust; break;
 
 				case Direction::rightDir:
 				case Direction::upRightDir:
-				case Direction::downRightDir:	x -= backMove * 2.0; break;
+				case Direction::downRightDir:	x -= backMove * backAdjust; break;
 				}
 			}
-			else if(collisionType == rock)
+			// 他の岩に当たった時
+			else if(collisionType == CollisionObjType::rock)
 			{
-				if		(GetRect().top < collisionRect.top)		y -= backMove * 2.0;
-				else if (GetRect().top > collisionRect.top)		y += backMove * 2.0;
-				else if (GetRect().left < collisionRect.left)	x -= backMove * 2.0;
-				else if (GetRect().left > collisionRect.left)	x += backMove * 2.0;
+				if		(GetRect().top < collisionRect.top)		y -= backMove * backAdjust;
+				else if (GetRect().top > collisionRect.top)		y += backMove * backAdjust;
+				else if (GetRect().left < collisionRect.left)	x -= backMove * backAdjust;
+				else if (GetRect().left > collisionRect.left)	x += backMove * backAdjust;
 			}
-			else if (collisionType == goal)
+			// 目的地に触れた時
+			else if (collisionType == CollisionObjType::goal)
 			{
 				isGoal = true;
 			}

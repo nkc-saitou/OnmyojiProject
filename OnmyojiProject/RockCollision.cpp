@@ -29,7 +29,7 @@ namespace RockScope
 
 		if (objectCollision->OnCollision(myRockRect, playerRect))
 		{
-			type = player;
+			type = CollisionObjType::player;
 			return true;
 		}
 
@@ -42,7 +42,7 @@ namespace RockScope
 
 			if (objectCollision->OnCollision(myRockRect, rockRect[i]))
 			{
-				type = rock;
+				type = CollisionObjType::rock;
 				collisionRect = rockRect[i];
 				return true;
 			}
@@ -53,7 +53,7 @@ namespace RockScope
 		{
 			if (objectCollision->OnCollision(myRockRect, stageRect[i]))
 			{
-				type = wall;
+				type = CollisionObjType::wall;
 				collisionRect = stageRect[i];
 				return true;
 			}
@@ -66,7 +66,7 @@ namespace RockScope
 
 			if (objectCollision->OnCollision(myRockRect, goalRect[i]))
 			{
-				type = goal;
+				type = CollisionObjType::goal;
 				collisionRect = goalRect[i];
 
 				CollisionRectProvider::Instance()->RemoveGoalRectVec(i);
@@ -87,13 +87,13 @@ namespace RockScope
 		// ｘ方向、画面外に出ないように
 		if (objectCollision->OnCollision(myRockRect, rightEdgeStageRect))
 		{
-			type = wall;
+			type = CollisionObjType::wall;
 			collisionRect = rightEdgeStageRect;
 			return true;
 		}
 		if (objectCollision->OnCollision(myRockRect, leftEdgeStageRect))
 		{
-			type = wall;
+			type = CollisionObjType::wall;
 			collisionRect = leftEdgeStageRect;
 			return true;
 		}
@@ -101,13 +101,13 @@ namespace RockScope
 		// ｙ方向、画面外に出ないように
 		if (objectCollision->OnCollision(myRockRect, bottomEdgeStageRect))
 		{
-			type = wall;
+			type = CollisionObjType::wall;
 			collisionRect = bottomEdgeStageRect;
 			return true;
 		}
 		if (objectCollision->OnCollision(myRockRect, topEdgeStageRect))
 		{
-			type = wall;
+			type = CollisionObjType::wall;
 			collisionRect = topEdgeStageRect;
 			return true;
 		}

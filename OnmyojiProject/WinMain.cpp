@@ -17,7 +17,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//ウィンドウ表示
 	ChangeWindowMode(true);
-	SetMainWindowText("陰陽師");
+	SetMainWindowText("ぺんた☆ぐらむ");
 	SetGraphMode(screenSizeX, screenSizeY, colorBitDepth);//画面サイズ指定
 
 	//DXライブラリの初期化処理

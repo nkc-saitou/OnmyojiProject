@@ -1,6 +1,7 @@
 #include "ResultScene.h"
 #include "StageInpoter.h"
 #include "FadeManager.h"
+#include "ImageLoader.h"
 #include "Input.h"
 
 void ResultScene::Init()
@@ -17,6 +18,7 @@ void ResultScene::Init()
 void ResultScene::Draw()
 {
 	stageDraw->Update();
+	DrawGraph(SettingProvider::Instance()->screenSizeX / 3.5, SettingProvider::Instance()->screenSizeY / 2.5, ImageLoader::Instance()->GetClearLogoGh(), TRUE);
 }
 
 void ResultScene::Update()

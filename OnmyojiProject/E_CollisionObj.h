@@ -7,7 +7,7 @@ CollisionObjType列挙隊
 概要　：当たり判定を持つオブジェクトを列挙
 ///////////////////////////////////////////
 */
-enum CollisionObjType
+enum class CollisionObjType
 {
 	player,
 	wall,

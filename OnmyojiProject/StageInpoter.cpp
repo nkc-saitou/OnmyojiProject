@@ -138,7 +138,6 @@ bool StageInpoter::IsStageEdge(int x, int y)
 	else return false;
 }
 
-
 /////////////////////////////////////////////////////
 //引数			:ファイル全体の数、１ステージごとのデータ
 //戻り値		:なし

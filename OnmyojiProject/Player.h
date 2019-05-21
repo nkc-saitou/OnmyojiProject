@@ -6,6 +6,7 @@
 #include "SettingProvider.h"
 #include "E_PlayerDirection.h"
 #include "PlayerInput.h"
+#include "ImageRenderer.h"
 
 #include <memory>
 
@@ -28,6 +29,7 @@ namespace PlayerScope
 
 		std::unique_ptr<PlayerCollision> playerCollision = std::make_unique<PlayerCollision>();
 		std::unique_ptr<PlayerInput> plyaerInput = std::make_unique<PlayerInput>();
+		std::unique_ptr<ImageRenderer> imageRenderer = std::make_unique<ImageRenderer>();
 
 		// イメージのサイズ。縦横ともに64px
 		const int graphSize = 64;
@@ -79,6 +81,9 @@ namespace PlayerScope
 		// 現在の方向
 		Direction directionState = Direction::upDir;
 
+		// 描画用データ
+		RendererData rendererData;
+
 		//===============================
 		// 関数
 		//===============================
@@ -95,6 +100,8 @@ namespace PlayerScope
 		void Draw();
 		// 当たり判定の座標を登録
 		void SetPosition();
+		// 描画データを登録
+		void SetLayerData();
 
 	public:
 

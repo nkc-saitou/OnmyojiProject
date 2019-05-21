@@ -8,15 +8,16 @@
 /////////////////////////////////////////////////////
 void ImageLoader::ImageDiv()
 {
-	LoadDivGraph(fileName[gameImage], 11, 6, 2, 128, 128, gameStageGh);
-	LoadDivGraph(fileName[toolImage], 11, 6, 2, 128, 128, toolStageGh);
-	LoadDivGraph(fileName[playerWalkImage], 16, 4, 4, 64, 64, playerWalkGh);
-	LoadDivGraph(fileName[playerIdolImage], 8, 2, 4, 64, 64, playerIdolGh);
+	LoadDivGraph(fileName[(int)ImageDataIndex::gameImage], 11, 6, 2, 128, 128, gameStageGh);
+	LoadDivGraph(fileName[(int)ImageDataIndex::toolImage], 11, 6, 2, 128, 128, toolStageGh);
+	LoadDivGraph(fileName[(int)ImageDataIndex::playerWalkImage], 16, 4, 4, 64, 64, playerWalkGh);
+	LoadDivGraph(fileName[(int)ImageDataIndex::playerIdolImage], 8, 2, 4, 64, 64, playerIdolGh);
 
-	backTitleGroundGh = LoadGraph(fileName[backTitleImage]);
-	backGroundGh = LoadGraph(fileName[backGameImage]);
-	backClearGroundGh = LoadGraph(fileName[backClearImage]);
-	titlelogoGh = LoadGraph(fileName[titlelogoImage]);
-	gameEffectGh = LoadGraph(fileName[gameEffect]);
-	gameEffectMoveGh = LoadGraph(fileName[gameEffectMove]);
+	backTitleGroundGh	= LoadGraph(fileName[(int)ImageDataIndex::backTitleImage]);
+	backGroundGh		= LoadGraph(fileName[(int)ImageDataIndex::backGameImage]);
+	backClearGroundGh	= LoadGraph(fileName[(int)ImageDataIndex::backClearImage]);
+	titlelogoGh			= LoadGraph(fileName[(int)ImageDataIndex::titlelogoImage]);
+	gameEffectGh		= LoadGraph(fileName[(int)ImageDataIndex::gameEffect]);
+	gameEffectMoveGh	= LoadGraph(fileName[(int)ImageDataIndex::gameEffectMove]);
+	clearLogoGh			= LoadGraph(fileName[(int)ImageDataIndex::clearLogo]);
 }

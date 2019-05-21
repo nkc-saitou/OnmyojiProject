@@ -16,19 +16,20 @@ class SettingProvider : public Singleton <SettingProvider>
 
 	bool isClear = false;
 
-	SceneState sceneState = SceneState::titleScene;
+	// 一番最初はタイトルシーン
+	SceneState sceneState = SceneState::resultScene;
 
 
 public:
 	const int screenSizeX = 1920;
 	const int screenSizeY = 1080;
 
-	void SetSceneState(SceneState scene) { sceneState = scene; }
-	SceneState GetSceneState() { return sceneState; }
+	void SetSceneState(SceneState scene)	{ sceneState = scene; }
+	SceneState GetSceneState()				{ return sceneState; }
 
-	void SetStageNumber(int stageNum) { stageNumber = stageNum; }
-	int GetStageNumber() { return stageNumber; }
+	void SetStageNumber(int stageNum)		{ stageNumber = stageNum; }
+	int GetStageNumber()					{ return stageNumber; }
 
-	void SetClearFlg(bool clearFlg) { isClear = clearFlg; }
-	bool GetIsClear() { return isClear; }
+	void SetClearFlg(bool clearFlg)			{ isClear = clearFlg; }
+	bool GetIsClear()						{ return isClear; }
 };

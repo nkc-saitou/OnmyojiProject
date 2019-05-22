@@ -112,5 +112,8 @@ namespace PlayerScope
 
 		// プレイヤーの向きを取得できる
 		Direction GetPlayerDirection() { return directionState; }
+
+		// Rendererのデータ
+		RendererData GetRendererData() { return rendererData; }
 	};
 }

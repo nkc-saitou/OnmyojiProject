@@ -20,8 +20,10 @@ namespace RockScope {
 		std::unique_ptr<RockCollision> rockCollision = std::make_unique<RockCollision>();
 		std::unique_ptr<ImageRenderer> imageRenderer = std::make_unique<ImageRenderer>();
 
+
 		const int graphSize = 64;
 
+		// 当たり判定の位置を調整する
 		const int offset = 20;
 
 		const double speed = 1.0;
@@ -39,6 +41,7 @@ namespace RockScope {
 
 
 		PlayerScope::Direction playerDir;
+
 
 		// 描画用データ
 		RendererData rendererData;
@@ -63,5 +66,8 @@ namespace RockScope {
 		void IsMove(bool tempIsMove) { isMove = tempIsMove; }
 
 		bool IsGoal() { return isGoal; }
+
+		// Rendererのデータ
+		RendererData GetRendererData() { return rendererData; }
 	};
 }

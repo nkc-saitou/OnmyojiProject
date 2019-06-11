@@ -117,7 +117,8 @@ public:
 	bool AnyButtonUp();
 
 
-	//=====接続されているパッドのうち、どれか一つでも引数のkeyCodeを入力していたら=====
+	//=====接続されているパッドのうち、
+	//どれか一つでも引数のkeyCodeを入力していたら=====
 
 	//どれかのパッドが指定のボタンを押しているとき
 	bool PadAnyButton(int keyCode);

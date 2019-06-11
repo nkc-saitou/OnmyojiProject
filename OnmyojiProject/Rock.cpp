@@ -9,6 +9,11 @@ namespace RockScope
 {
 	using namespace PlayerScope;
 
+	/////////////////////////////////////////////////////
+	//引数			:移動方向
+	//戻り値		:なし
+	//動作			:岩が動く挙動
+	/////////////////////////////////////////////////////
 	void Rock::Move(Direction dir)
 	{
 		// 現在動ける状態でない　または　すでにゴール位置にいる場合は終了
@@ -31,25 +36,22 @@ namespace RockScope
 		}
 	}
 
-	void Rock::SetLayerData()
-	{
-		rendererData.x = x;
-		rendererData.y = y;
-		rendererData.gh = ImageLoader::Instance()->GetGameStageGH()[chip_rock];
-		rendererData.orderInLayer = 0;
-		rendererData.layerType = LayerType::object;
-		rendererData.TransparencySortFlg = TRUE;
-		rendererData.transFlg = TRUE;
-	}
-
-
+	/////////////////////////////////////////////////////
+	//引数			:なし
+	//戻り値		:なし
+	//動作			:描画
+	/////////////////////////////////////////////////////
 	void Rock::Draw()
 	{
-		SetLayerData();
-		//DrawExtendGraph(x, y, x + graphSize, y + graphSize, ImageLoader::Instance()->GetGameStageGH()[chip_rock], TRUE);
+		DrawExtendGraph(x, y, x + graphSize, y + graphSize, ImageLoader::Instance()->GetGameStageGH()[chip_rock], TRUE);
 	}
 
 
+	/////////////////////////////////////////////////////
+	//引数			:なし
+	//戻り値		:なし
+	//動作			:当たり判定
+	/////////////////////////////////////////////////////
 	void Rock::Collision()
 	{
 		Rect collisionRect;
@@ -99,7 +101,11 @@ namespace RockScope
 		}
 	}
 
-
+	/////////////////////////////////////////////////////
+	//引数			:なし
+	//戻り値		:なし
+	//動作			:当たり判定の範囲をセット
+	/////////////////////////////////////////////////////
 	void Rock::RectSet()
 	{
 		double top		= y + offset;
@@ -110,14 +116,22 @@ namespace RockScope
 		SetValue(&top, &bottom, &left, &right);
 	}
 
-
+	/////////////////////////////////////////////////////
+	//引数			:なし
+	//戻り値		:なし
+	//動作			:初期位置をセット
+	/////////////////////////////////////////////////////
 	void Rock::SetStartPos(double posX, double posY)
 	{
 		x = posX * graphSize;
 		y = posY * graphSize;
 	}
 
-
+	/////////////////////////////////////////////////////
+	//引数			:なし
+	//戻り値		:なし
+	//動作			:更新
+	/////////////////////////////////////////////////////
 	void Rock::Update()
 	{
 		Collision();

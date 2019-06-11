@@ -71,20 +71,14 @@ void GameScene::GameClear()
 /////////////////////////////////////////////////////
 void GameScene::Draw()
 {
-	for (int i = 0; i < testVec.size(); i++)
-	{
-		DrawBox(testVec[i].left, testVec[i].top, testVec[i].right, testVec[i].bottom, GetColor(255, 0, 0), TRUE);
-	}
 
-	Rect top = CollisionRectProvider::Instance()->GetTopEdgeStageRect();
-	Rect bottom = CollisionRectProvider::Instance()->GetBottomEdgeStageRect();
-	Rect left = CollisionRectProvider::Instance()->GetLeftEdgeStageRect();
-	Rect right = CollisionRectProvider::Instance()->GetRightEdgeStageRect();
+	DrawGraph(0, 0, ImageLoader::Instance()->GetGameEffectGh(), TRUE);
 
-	DrawBox(top.left, top.top, top.right, top.bottom, GetColor(255, 0, 0), TRUE);
-	DrawBox(bottom.left, bottom.top, bottom.right, bottom.bottom, GetColor(255, 0, 0), TRUE);
-	DrawBox(left.left, left.top, left.right, left.bottom, GetColor(255, 0, 0), TRUE);
-	DrawBox(right.left, right.top, right.right, right.bottom, GetColor(255, 0, 0), TRUE);
+	DrawGraph(oneEffect, 0, ImageLoader::Instance()->GetGameEffectMoveGh(), TRUE);
+	DrawGraph(twoEffect, 0, ImageLoader::Instance()->GetGameEffectMoveGh(), TRUE);
+
+	oneEffect = (oneEffect > -1920) ? (oneEffect - 1) : 1920;
+	twoEffect = (twoEffect > -1920) ? (twoEffect - 1) : 1920;
 }
 
 /////////////////////////////////////////////////////
@@ -104,20 +98,9 @@ void GameScene::Update()
 	rockController->Update();
 
 
-	// “WŽ¦‰ï—p@I‚í‚Á‚½‚çÁ‚·
-	DrawGraph(0, 0, ImageLoader::Instance()->GetGameEffectGh(), TRUE);
 
-	DrawGraph(oneEffect, 0, ImageLoader::Instance()->GetGameEffectMoveGh(), TRUE);
-	DrawGraph(twoEffect, 0, ImageLoader::Instance()->GetGameEffectMoveGh(), TRUE);
-
-	oneEffect = (oneEffect > -1920) ? (oneEffect - 1) : 1920;
-	twoEffect = (twoEffect > -1920) ? (twoEffect - 1) : 1920;
-
-
+	Draw();
 
 
 	GameClear();
-
-
-	//Draw();
 }

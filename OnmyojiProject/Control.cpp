@@ -17,9 +17,7 @@ Control::Control()
 	AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_TitleSH());
 
 	FadeManager::Instance()->ResetFadeValue();
-
 }
-
 
 /////////////////////////////////////////////////////
 //引数			:なし
@@ -39,6 +37,7 @@ void Control::ChangeScene()
 	switch (sceneState)
 	{
 	case SceneState::titleScene:
+		// 前フレームと比較して、シーンが変わっていたら
 		if (isSceneChange(memoryState, sceneState))
 		{
 			AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_TitleSH());
@@ -54,6 +53,7 @@ void Control::ChangeScene()
 		if (isSceneChange(memoryState, sceneState))
 		{
 			AudioManager::Instance()->PlayBGM(AudioManager::Instance()->GetBGM_GameSh());
+			// ステージ読み込み
 			gameScene->SetStage(0);
 		}
 

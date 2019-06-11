@@ -239,25 +239,6 @@ namespace PlayerScope
 	/////////////////////////////////////////////////////
 	//引数			:なし
 	//戻り値		:なし
-	//動作			:描画用のデータを登録
-	/////////////////////////////////////////////////////
-	void Player::SetLayerData()
-	{
-		if (isMove) rendererData.gh = ImageLoader::Instance()->GetPlayerWalkGH()[moveIndex];
-		else rendererData.gh = ImageLoader::Instance()->GetPlayerIdolGH()[stopIndex];
-
-		rendererData.x = x;
-		rendererData.y = y;
-		rendererData.orderInLayer = 0;
-		rendererData.layerType = LayerType::object;
-		rendererData.TransparencySortFlg = TRUE;
-		rendererData.transFlg = TRUE;
-	}
-
-
-	/////////////////////////////////////////////////////
-	//引数			:なし
-	//戻り値		:なし
 	//動作			:描画
 	/////////////////////////////////////////////////////
 	void Player::Draw()
@@ -265,11 +246,9 @@ namespace PlayerScope
 		MoveGraphSet();
 		IdolGraphSet();
 
-		SetLayerData();
-
-		//// プレイヤー表示
-		//if (isMove) DrawGraph(x, y, ImageLoader::Instance()->GetPlayerWalkGH()[moveIndex], TRUE);
-		//else DrawGraph(x, y, ImageLoader::Instance()->GetPlayerIdolGH()[stopIndex], TRUE);
+		// プレイヤー表示
+		if (isMove) DrawGraph(x, y, ImageLoader::Instance()->GetPlayerWalkGH()[moveIndex], TRUE);
+		else DrawGraph(x, y, ImageLoader::Instance()->GetPlayerIdolGH()[stopIndex], TRUE);
 	}
 
 	/////////////////////////////////////////////////////

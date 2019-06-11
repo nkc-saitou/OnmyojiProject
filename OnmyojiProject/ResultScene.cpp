@@ -4,6 +4,11 @@
 #include "ImageLoader.h"
 #include "Input.h"
 
+/////////////////////////////////////////////////////
+//引数			:なし
+//戻り値		:なし
+//動作			:初期化
+/////////////////////////////////////////////////////
 void ResultScene::Init()
 {
 	stageDraw = make_unique<StageDraw>(SceneState::resultScene);
@@ -15,12 +20,22 @@ void ResultScene::Init()
 	isFadeFirst = false;
 }
 
+/////////////////////////////////////////////////////
+//引数			:なし
+//戻り値		:なし
+//動作			:描画
+/////////////////////////////////////////////////////
 void ResultScene::Draw()
 {
 	stageDraw->Update();
 	DrawGraph(SettingProvider::Instance()->screenSizeX / 3.5, SettingProvider::Instance()->screenSizeY / 2.5, ImageLoader::Instance()->GetClearLogoGh(), TRUE);
 }
 
+/////////////////////////////////////////////////////
+//引数			:なし
+//戻り値		:なし
+//動作			:更新
+/////////////////////////////////////////////////////
 void ResultScene::Update()
 {
 	Draw();

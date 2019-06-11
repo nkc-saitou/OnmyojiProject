@@ -133,7 +133,6 @@
   <ItemGroup>
     <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="CollisionRectProvider.cpp" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="FadeManager.cpp" />
     <ClCompile Include="FpsFix.cpp" />
     <ClCompile Include="Control.cpp" />
@@ -161,7 +160,6 @@
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="CircleShape.h" />
     <ClInclude Include="CreateGoalPoint.h" />
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="E_CollisionObj.h" />
     <ClInclude Include="E_LayerType.h" />
     <ClInclude Include="E_SceneState.h" />
@@ -170,7 +168,6 @@
     <ClInclude Include="Control.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="ImageLoader.h" />
-    <ClInclude Include="ImageRenderer.h" />
     <ClInclude Include="ObjectCollision.h" />
     <ClInclude Include="PlayerCollision.h" />
     <ClInclude Include="CollisionRectProvider.h" />

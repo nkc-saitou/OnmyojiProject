@@ -2,6 +2,13 @@
 #include "SettingProvider.h"
 #include "StageDraw.h"
 
+/*
+///////////////////////////////////////////
+ResultSceneクラス
+
+概要　：リザルト画面制御クラス
+///////////////////////////////////////////
+*/
 class ResultScene
 {
 	std::unique_ptr<StageDraw> stageDraw;

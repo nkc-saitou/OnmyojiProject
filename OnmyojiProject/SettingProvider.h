@@ -17,7 +17,7 @@ class SettingProvider : public Singleton <SettingProvider>
 	bool isClear = false;
 
 	// 一番最初はタイトルシーン
-	SceneState sceneState = SceneState::resultScene;
+	SceneState sceneState = SceneState::titleScene;
 
 
 public:

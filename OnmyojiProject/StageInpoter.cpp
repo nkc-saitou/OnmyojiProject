@@ -28,7 +28,8 @@ StageInpoter::StageInpoter()
 		//　ステージデータ読み込み
 		if (IsSplit(fileNameVec[i], tempStageData))
 		{
-			// ステージデータの仕分け(動かない壁のみステージデータに残し、後は別で他の配列に保存しておく)
+			// ステージデータの仕分け
+			//(動かない壁のみステージデータに残し、後は別で他の配列に保存しておく)
 			AssortmentStageData(i, tempStageData);
 
 			// ステージデータを保存
@@ -150,6 +151,7 @@ void StageInpoter::AssortmentStageData(int num, vector<vector<int>>& stageData)
 	vector<position> tempRockPosData;
 	vector<position> tempEnemyOnePosData;
 	vector<position> tempEnemyTwoPosData;
+
 	for (int y = 0; y < stageY; y++)
 	{
 		for (int x = 0; x < stageX; x++)
